@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="最开始我以为这是个很简单的问题，结果后面我发现我看错题了………………">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于汉诺塔问题的一些思考">
+<meta property="og:url" content="http://blog.yuzi0201.top/posts/9c35c7aa.html">
+<meta property="og:site_name" content="Yuzi&#39;s Blog">
+<meta property="og:description" content="最开始我以为这是个很简单的问题，结果后面我发现我看错题了………………">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/17/DVY1PJ.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/19/DusYfs.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/19/DusytJ.png">
+<meta property="article:published_time" content="2020-11-17T03:49:57.000Z">
+<meta property="article:modified_time" content="2021-10-12T12:28:05.654Z">
+<meta property="article:author" content="Yuzi">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2020/11/17/DVY1PJ.jpg"><title>关于汉诺塔问题的一些思考 | Yuzi's Blog</title><link ref="canonical" href="http://blog.yuzi0201.top/posts/9c35c7aa.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuzi's Blog</div><div class="header-banner-info__subtitle">时间的流痕</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">关于汉诺塔问题的一些思考</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-11-17</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2021-10-12</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">2.1k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">14分</span></span></div></header><div class="post-body"><p>最开始我以为这是个很简单的问题，结果后面我发现我看错题了………………</p>
+<span id="more"></span>
+
+
+        <h2 id="题目"   >
+          <a href="#题目" class="heading-link"><i class="fas fa-link"></i></a><a href="#题目" class="headerlink" title="题目"></a>题目</h2>
+      <p>汉诺塔(Tower of Hanoi)源于印度传说中，大梵天创造世界时造了三根金钢石柱子，其中一根柱子自底向上叠着64片黄金圆盘。大梵天命令婆罗门把圆盘从下面开始按大小顺序重新摆放在另一根柱子上。并且规定，在小圆盘上不能放大圆盘，在三根柱子之间<strong>一次只能移动一个圆盘。</strong> </p>
+<p><em><strong>注意！一次只能移动一个圆盘！！</strong></em></p>
+
+        <h2 id="初探"   >
+          <a href="#初探" class="heading-link"><i class="fas fa-link"></i></a><a href="#初探" class="headerlink" title="初探"></a>初探</h2>
+      <p><img src="https://s3.ax1x.com/2020/11/17/DVY1PJ.jpg"></p>
+<p>题目中，A为起始柱子，B为中间柱子，C为终到柱子</p>
+
+        <h2 id="化繁为简"   >
+          <a href="#化繁为简" class="heading-link"><i class="fas fa-link"></i></a><a href="#化繁为简" class="headerlink" title="化繁为简"></a>化繁为简</h2>
+      
+        <h3 id="1阶-move-1-A-B-C"   >
+          <a href="#1阶-move-1-A-B-C" class="heading-link"><i class="fas fa-link"></i></a><a href="#1阶-move-1-A-B-C" class="headerlink" title="1阶 move(1,A,B,C)"></a>1阶 move(1,A,B,C)</h3>
+      <p>如果只有一个片片，会怎么样？</p>
+<p>答案很简单，A–&gt;C，不需要以B为中转</p>
+
+        <h3 id="2阶-move-2-A-B-C"   >
+          <a href="#2阶-move-2-A-B-C" class="heading-link"><i class="fas fa-link"></i></a><a href="#2阶-move-2-A-B-C" class="headerlink" title="2阶 move(2,A,B,C)"></a>2阶 move(2,A,B,C)</h3>
+      <p>现在A有2个片了，因为大的必须要在下面，所以首要任务是把A底下的移到C去，但是小的那一个必须先动，才能移动大的。移动小的，就成了一阶的问题了，只不过，C要被大的占用，所以小片片的目标柱子成了B</p>
+<p>所以步骤为：</p>
+<p>1.A–&gt;B（以A为起始，C为中间，B为目标）</p>
+<p>move(1,A,C,B)</p>
+<p><img src=""></p>
+<p>2.A–&gt;C（与1阶相同）</p>
+<p>move(1,A,B,C)</p>
+<p><img src=""></p>
+<p>3.B–&gt;C</p>
+<p>move(1,B,A,C)</p>
+<p><img src="https://s3.ax1x.com/2020/11/19/DusYfs.jpg"></p>
+<p>到此时就已经完成了</p>
+
+        <h3 id="3阶"   >
+          <a href="#3阶" class="heading-link"><i class="fas fa-link"></i></a><a href="#3阶" class="headerlink" title="3阶"></a>3阶</h3>
+      <p>好了，现在A上有三个片片了，现在把它分开，我要把上面2个移到B上，把最大的移到C上。</p>
+<p>应该调用什么函数？</p>
+<p>1.move(2,A,C,B)</p>
+<p>依照这个，让上面两个到了B，接下来，要让A剩下的最大的那个到C</p>
+<p>2.move(1,A,B,C)</p>
+<p>好了，最大的已经到C了，这个时候我们只需要把B上的两个到C上</p>
+<p>3.move(2,B,A,C)</p>
+<p>好了，结束</p>
+<p><strong>发现什么奇怪的东西没有？？</strong></p>
+<p><strong>3阶与2阶，调用的函数，除了第一步和第二步加了个1之外，都是一样的！！！</strong></p>
+<p>因为这时<del>按照传统功夫</del> 我们已经将问题化成了一个基本的递归思想！</p>
+<ol>
+<li>将除了最大的那个其他的搬到B上</li>
+<li>将最大的搬到C上</li>
+<li>将B上的搬动到C上</li>
+</ol>
+<p>而1与3的复杂的操作可以交给递归解决</p>
+<p>那么函数代码可以出来了</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mover</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> a, <span class="keyword">char</span> b, <span class="keyword">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n == <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; a &lt;&lt; <span class="string">&quot;--&gt;&quot;</span> &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">mover</span>(n - <span class="number">1</span>, a, c, b);</span><br><span class="line">		cout &lt;&lt; a &lt;&lt; <span class="string">&quot;--&gt;&quot;</span> &lt;&lt; c &lt;&lt; endl; <span class="comment">//这句话也可以改为“mover (1,a,b,c);”效果一样</span></span><br><span class="line">		<span class="built_in">mover</span>(n - <span class="number">1</span>, b, a, c);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+<p>可能走得有点快了，第一次我也有点疑惑这三步为什么就可以成了？毕竟递归真的有点难以理解</p>
+
+        <h2 id="递归的详解"   >
+          <a href="#递归的详解" class="heading-link"><i class="fas fa-link"></i></a><a href="#递归的详解" class="headerlink" title="递归的详解"></a>递归的详解</h2>
+      <p>把三阶展开来（这里之间贴知乎大佬的答案）</p>
+<p>链接：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/24385418/answer/252603808" >https://www.zhihu.com/question/24385418/answer/252603808</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<blockquote>
+<p>step1. 把除了最大的盘子之外的盘子从A移到B（注意对于这个步骤来说此时A为开始柱，C为中转柱，B为目标柱，这样才能完成把最上面的2个盘子从A—&gt;B的任务）</p>
+<p>A—&gt;C  (开始柱—&gt;中转柱)   【相当于调用  move（1，A，B，C）】</p>
+<p>A—&gt;B  (开始柱—&gt;目标柱)   【相当于调用  move（1，A，C，B）】</p>
+<p>C—&gt;B  (中转柱—&gt;目标柱)   【相当于调用  move（1，C，A，B）】</p>
+<p>step2.  把最大的盘子从A移到C（对于这个步骤来说此时A为开始柱，B为中转柱，C为目标柱，这样才能把最大的盘子从A—&gt;C）</p>
+<p>A—&gt;C  (开始柱—&gt;目标柱)   【相当于调用  move（1，A，B，C），即直接执行 print（’A—&gt;C’）】</p>
+<p>step3.  把除了最大的盘子之外的盘子从B移到C（注意对于这个步骤来说此时B为开始柱，A为中转柱，C为目标柱，这样才能完成把处于step2中的中转柱的2个盘子从B—&gt;C的任务）</p>
+<p>B —&gt; A  (开始柱—&gt;中转柱)   【相当于调用  move（1，B，C，A）】</p>
+<p>B —&gt; C  (开始柱—&gt;目标柱)   【相当于调用  move（1，B，A，C）】</p>
+<p>A —&gt; C  (中转柱—&gt;目标柱)   【相当于调用  move（1，A，B，C）】</p>
+</blockquote>
+<p>**注意到了吧，move(2,A,C,B)等价于调用  move（1，A，B，C）； move（1，A，C，B）； move（1，C，A，B）【注意输入的字母顺序不一样，要做相应替换！！！！】</p>
+<p>所以函数就可以继续递归调用下去，然后完成计算。</p>
+<blockquote>
+<p>链接：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/24385418/answer/252603808" >https://www.zhihu.com/question/24385418/answer/252603808</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>这三个步骤就是move（2，A，B，C）所做的事情，是可以详细列出每步移动的动作的。</p>
+<p>既然最上面的2个盘子都调用move（2，A，B，C）移开了，那么第3个盘子自然也可以从A—&gt;B了，之后再把放在C上面的2个盘子从C移动到B上就完成了移动上面3个盘子的任务了。前面的move（2，A，B，C）函数既然可以将2个盘子从A借助B移动到C并列出详细的移动动作，那么move（2，C，A，B）也就能将放在C上的2个盘子从C借助A移动到B并列出详细的移动动作，如此说来，移动3个盘子的步骤就可以总结如下了：</p>
+<p>move（2，A，B，C）</p>
+<p>A—&gt;B</p>
+<p>move（2，C，A，B）</p>
+<p>这三个步骤就是move（3，A，C，B）所做的事情，因为我们已经证明move（2，A，B，C）和move（2，C，A，B）是可以详细列出移动2个盘子时每步移动的动作的，而中间的A—&gt;B是一步显而易见的移动动作，所以可以确定move（3，A，C，B）是能列出每步的移动动作的。</p>
+<p>然后根据同样的分析，最上面的3个盘子都移开了，接着只要将第4个盘子从A—&gt;C，然后将放在B上的3个盘子移动到C上就完成全部任务了。前面我们已经证明move（3，A，C，B）能将3个盘子从A借助C移动到B并且列出详细的移动动作，那么move（3，B，A，C）也能将3个盘子从B借助A移动到C并列出每步的移动动作，这样，移动4个盘子的步骤就出来了：</p>
+<p>move（3，A，C，B）</p>
+<p>A—&gt;C</p>
+<p>move（3，B，A，C）</p>
+<p>这三个步骤就是最开始move（4，A，B，C）函数所做的事情，因为我们已经证明move（3，A，C，B）和move（3，B，A，C）是可以详细列出移动3个盘子时每步移动的动作的，而中间的A—&gt;C是一步显而易见的移动动作，所以可以确定move（4，A，B，C）是能列出每步的移动动作的。</p>
+<p><strong>需要说明的是，从xx借助xx移动到xx这样的说法在上面出现了很多次，“从”后面代表的就是开始柱，“借助”后面代表的是中转柱，“移动到”后面代表的是目标柱。你也能注意到到 开始柱，中转柱，目标柱 在不同层级下是不一样的。</strong></p>
+</blockquote>
+<p>代码完成</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mover</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> a, <span class="keyword">char</span> b, <span class="keyword">char</span> c)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;Input the number of disks:&quot;</span> &lt;&lt; endl;</span><br><span class="line">	cin &gt;&gt; m;</span><br><span class="line">	<span class="built_in">mover</span>(m, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mover</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> a, <span class="keyword">char</span> b, <span class="keyword">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n == <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; a &lt;&lt; <span class="string">&quot;--&gt;&quot;</span> &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">mover</span>(n - <span class="number">1</span>, a, c, b);</span><br><span class="line">		cout &lt;&lt; a &lt;&lt; <span class="string">&quot;--&gt;&quot;</span> &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">		<span class="built_in">mover</span>(n - <span class="number">1</span>, b, a, c);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>输出结果（以4阶为例）</p>
+<p><img src="https://s3.ax1x.com/2020/11/19/DusytJ.png"></p>
+<p>参考链接：</p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/24385418/answer/252603808" >https://www.zhihu.com/question/24385418/answer/252603808</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37873310/article/details/80461767" >https://blog.csdn.net/qq_37873310/article/details/80461767</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>关于递归算法，这中解决问题的方法也只有计算机才喜欢，我们虽然看着代码很简单，但真要深入理解也是很费脑细胞的，不过递归确实有中数学上的简洁美和逻辑美。</p>
+<p>以上，Fin.</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://blog.yuzi0201.top">Yuzi</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://blog.yuzi0201.top/posts/9c35c7aa.html">http://blog.yuzi0201.top/posts/9c35c7aa.html</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://blog.yuzi0201.top/tags/C/">C++</a></span></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/posts/a4379cc7.html"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">一个选择排序函数</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/posts/77ec62ce.html"><span class="paginator-prev__text">201102线性代数</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">
+          题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E6%8E%A2"><span class="toc-number">2.</span> <span class="toc-text">
+          初探</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%96%E7%B9%81%E4%B8%BA%E7%AE%80"><span class="toc-number">3.</span> <span class="toc-text">
+          化繁为简</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E9%98%B6-move-1-A-B-C"><span class="toc-number">3.1.</span> <span class="toc-text">
+          1阶 move(1,A,B,C)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E9%98%B6-move-2-A-B-C"><span class="toc-number">3.2.</span> <span class="toc-text">
+          2阶 move(2,A,B,C)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E9%98%B6"><span class="toc-number">3.3.</span> <span class="toc-text">
+          3阶</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E7%9A%84%E8%AF%A6%E8%A7%A3"><span class="toc-number">4.</span> <span class="toc-text">
+          递归的详解</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/lxh.png" alt="avatar"></div><p class="sidebar-ov-author__text">Yuzi0201</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">15</div><div class="sidebar-ov-state-item__name">归档</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Yuzi</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
