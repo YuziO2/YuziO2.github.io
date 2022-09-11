@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="zh_CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>链队的应用：连续区间求最小 | Yuzi&#39;s Blog</title>
+        <meta name="author" content="Yuzi">
+        <meta name="description" content="A blog which include my study and life">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/lxh.png">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <canvas id="background"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+        <script src="/js/anime.js"></script>
+        <canvas id="fireworks"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:2147483647"></canvas>
+        <script src="/js/fireworks.js"></script>
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p><div><img alt="loading" src="/loading.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Yuzi's Blog</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;about</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;tags</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;Yuzi's Blog</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>链队的应用：连续区间求最小 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2021/10/26
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/数据结构/" style="color: #00bcd4">
+                    数据结构
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <p>一个数据结构的链队小练习</p>
+<span id="more"></span>
+
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>例：<br>2 3 5 6 1 4 7<br>前4数最小为2，2-5数为1，3-6为1，4-7为1<br>给出一个数组，给出n，输出每一组n个数的最小值</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="创建链队"><a href="#创建链队" class="headerlink" title="创建链队"></a>创建链队</h2><pre><code class="cpp">typedef struct QNode
+&#123;
+    int data;
+    struct QNode *next;
+&#125; QNode, *QueuePtr;
+typedef struct
+&#123;
+    QueuePtr front;
+    QueuePtr rear;
+&#125; Link;
+</code></pre>
+<p>以很合理的方式创建了一个链队。</p>
+<h2 id="创建一个类"><a href="#创建一个类" class="headerlink" title="创建一个类"></a>创建一个类</h2><pre><code class="cpp">class Quene
+&#123;
+private:
+    Link Q;
+    int n;
+    int a[100];
+    int length;
+public:
+    Quene(int a[], int length, int n);
+    Quene();
+    ~Quene();
+    void makequeue()
+&#125;;
+</code></pre>
+<p>用一个类封装了一下所有的数据及函数。<br>构造函数采用了重载，分为预设数据和手动输入数据。</p>
+<h2 id="构造函数-从键盘输入数据"><a href="#构造函数-从键盘输入数据" class="headerlink" title="构造函数[从键盘输入数据]"></a>构造函数[从键盘输入数据]</h2><pre><code class="cpp">Quene::Quene()
+&#123;
+    length = 0;
+    cout &lt;&lt; &quot;\nPlease enter the array:&quot; &lt;&lt; endl;
+    while (cin &gt;&gt; a[length])//从键盘获取数组，同时得到数组长度
+    &#123;
+        length++;
+        if (cin.get() == &#39;\n&#39;)
+            break;
+    &#125;
+    cout &lt;&lt; &quot;Please enter n: &quot;;
+    cin &gt;&gt; n;
+    Q.front = Q.rear = new QNode;
+    Q.front-&gt;next = NULL;//初始化链队
+&#125;
+</code></pre>
+<h2 id="构造函数-使用默认数据"><a href="#构造函数-使用默认数据" class="headerlink" title="构造函数[使用默认数据]"></a>构造函数[使用默认数据]</h2><pre><code class="cpp">Quene::Quene(int a[], int length, int n)
+&#123;
+    Q.front = Q.rear = new QNode;//初始化链队
+    Q.front-&gt;next = NULL;
+    this-&gt;length = length;
+    this-&gt;n = n;
+    for (size_t i = 0; i &lt; length; i++)
+    &#123;
+        this-&gt;a[i] = a[i];//从传入的参数获取数组，长度，n
+    &#125;
+&#125;
+</code></pre>
+<h2 id="进行比较的函数"><a href="#进行比较的函数" class="headerlink" title="进行比较的函数"></a>进行比较的函数</h2><pre><code class="cpp">void makequeue()
+    &#123;
+        int min = 0;
+        for (int i = 0; i &lt; n; i++)//将前n个数据放入链队
+        &#123;
+            QueuePtr p = new QNode; //入队元素开辟空间
+            p-&gt;data = a[i];         //置数1
+            p-&gt;next = NULL;
+            Q.rear-&gt;next = p; //新节点插入队尾
+            Q.rear = p;       //修改新节点指针
+            if (!i)
+            &#123;
+                min = p-&gt;data;
+            &#125;
+            else if (p-&gt;data &lt; min)//比较出最小的那一个数并输出
+            &#123;
+                min = p-&gt;data;
+            &#125;
+        &#125;
+        cout &lt;&lt; min &lt;&lt; &quot; &quot;;
+        for (size_t i = n; i &lt; length; i++)//对于剩下的数，每一次循环，从队尾新加一个数，将队头的数移出，然后进行比较大小
+        &#123;
+            /*——————入队——————*/
+            QueuePtr p = new QNode; //入队元素开辟空间
+            p-&gt;data = a[i];         //置数1
+            p-&gt;next = NULL;
+            Q.rear-&gt;next = p; //新节点插入队尾
+            Q.rear = p;       //修改新节点指针
+            /*——————出队——————*/
+            p = Q.front-&gt;next;
+            Q.front-&gt;next = p-&gt;next; //更新头指针
+            p = Q.front-&gt;next;       //为下面的比较大小而重置p
+            min = p-&gt;data;           //重置最小值
+            while (p-&gt;next)
+            &#123;
+                if (p-&gt;next-&gt;data &lt; min)
+                &#123;
+                    min = p-&gt;next-&gt;data;
+                &#125;
+                p = p-&gt;next;
+            &#125;
+            cout &lt;&lt; min &lt;&lt; &quot; &quot;;//比较大小，然后再输出最小值，重置参数min，然后进入下一次循环
+            min = 0x7fffffff; //最小值置最大；
+        &#125;
+    &#125;
+</code></pre>
+<h2 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h2><pre><code class="cpp">int main()
+&#123;
+    int a[100] = &#123;2, 3, 4, 5, 6, 114514, 9, 4, 5, 7, 1919810, 655, 66, 4500, 37, 19, 23, 298, 13, 2&#125;;
+    int length = 20;
+    int n = 4;
+    Quene q(a, length, n);
+    q.makequeue();
+    /*————手动输入数据————*/
+    Quene manual;
+    manual.makequeue();
+&#125;
+</code></pre>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>　　当元素出队时，可以最小值进行比较，若大于最小值，则下一次循环比较大小时无需将前三项数据进行比较，而是直接用原先的min与入队数据相比较，可以减少比较的次数。</p>
+<p>　　本篇代码：<a target="_blank" rel="noopener" href="https://github.com/Yuzi0201/Data-structure/blob/master/2-queue.cpp">https://github.com/Yuzi0201/Data-structure/blob/master/2-queue.cpp</a></p>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Yuzi&#39;s Blog
+            <span class="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            @Yuzi
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+    </body>
+</html>

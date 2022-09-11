@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html lang="zh_CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>动态数组-杨辉三角 | Yuzi&#39;s Blog</title>
+        <meta name="author" content="Yuzi">
+        <meta name="description" content="A blog which include my study and life">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/lxh.png">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <canvas id="background"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+        <script src="/js/anime.js"></script>
+        <canvas id="fireworks"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:2147483647"></canvas>
+        <script src="/js/fireworks.js"></script>
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p><div><img alt="loading" src="/loading.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Yuzi's Blog</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;about</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;tags</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;Yuzi's Blog</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>动态数组-杨辉三角 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2020/12/8
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/c/" style="color: #ff7d73">
+                    c++
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <p>浅谈一下这个有点复杂的杨辉三角</p>
+<span id="more"></span>
+
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>二项式(a+b)^n^展开式系数由n决定，有n+1个系数</p>
+<p>1</p>
+<p>1 1</p>
+<p>1 2 1</p>
+<p>1 3 3 1</p>
+<p>1 4 6 4 1</p>
+<p>1 5 10 10 5 1</p>
+<p>…………</p>
+<p>由于每行元素都是在上一行的基础上计算出来的，因此可以用一维数组进行迭代。数组长度是根据二项式的幂次决定的，所以在程序中使用动态数组。以下程序输出二项展开式 n 次幂的系数表。</p>
+<h2 id="书上程序"><a href="#书上程序" class="headerlink" title="书上程序"></a>书上程序</h2><pre><code class="c++">#include &lt;iostream&gt;
+using namespace std;
+void yhtriangle(int * const, int);
+
+int main()
+&#123;
+    int n, *yh;
+    do
+    &#123;
+        cout &lt;&lt; &quot;input n&quot; &lt;&lt; endl;
+        cin &gt;&gt; n;
+    &#125; while (n&lt;0||n&gt;20);  //此段保证n处于1-19之间
+    yh = new int[n + 1]; //创建n+1的数的动态数组
+    yhtriangle(yh, n);
+    delete[]yh;
+    yh = NULL; //释放
+&#125;
+
+void yhtriangle(int * const py, int pn)
+&#123;
+    int i, j, k;
+    py[0] = 1;//第一项的值为1
+    cout &lt;&lt; py[0] &lt;&lt; endl;//0次幂的系数
+    for (i = 1; i &lt; pn + 1; i++)//依次输出n=1,2,3……到n的结果
+    &#123;
+        py[i] = 1; //最后一项是1
+        for (j = i - 1; j &gt; 0; j--)
+            py[j] = py[j - 1] + py[j]; //难理解句！！注意：等式右边是上一行的！左边是本行的！！
+        for (k = 0; k &lt;= i; k++)
+            cout &lt;&lt; py[k] &lt;&lt; &quot; &quot;; //输出结果
+        cout &lt;&lt; endl;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h2><p>最难以理解的是第28行，也就是程序的核心，那我们先从算法来看每一项是怎么来的</p>
+<p><img src="https://s3.ax1x.com/2020/12/08/rSKwLj.png"></p>
+<p>这就是一个杨辉三角，跟着程序走一下：</p>
+<pre><code class="c++">void yhtriangle(int * const py, int pn)
+&#123;
+    int i, j, k;
+    py[0] = 1;//第一项的值为1
+    cout &lt;&lt; py[0] &lt;&lt; endl;//0次幂的系数
+</code></pre>
+<p>此时，数组第0项为1，第一行已经输出了</p>
+<pre><code class="c++">
+    for (i = 1; i &lt; pn + 1; i++)//依次输出n=1,2,3……到n的结果
+    &#123;
+        py[i] = 1; //最后一项是1
+        for (j = i - 1; j &gt; 0; j--)
+            py[j] = py[j - 1] + py[j]; //难理解句！！注意：等式右边是上一行的！左边是本行的！！
+        for (k = 0; k &lt;= i; k++)
+            cout &lt;&lt; py[k] &lt;&lt; &quot; &quot;; //输出结果
+        cout &lt;&lt; endl;
+    &#125;
+</code></pre>
+<p>进入循环，i&#x3D;1，开始第二行的操作</p>
+<p>首先将第二个数赋值1，进入循环，因为j&#x3D;0，不执行循环</p>
+<p>第二行输出，结束。</p>
+<p><strong>注意，结束后数组值未清空，所以我们可以利用上一行数据来算下一行！！</strong></p>
+<p>第3行，i&#x3D;2，</p>
+<p>第三项为1,</p>
+<p>第二项，由第二行的第二项与第一项相加而来！！</p>
+<p>第一项不变</p>
+<p><img src="https://s3.ax1x.com/2020/12/08/rSQjII.png" alt="img"></p>
+<p>第四行亦是如此</p>
+<p><img src="https://s3.ax1x.com/2020/12/08/rSl1eJ.png" alt="img"></p>
+<p>那么问题就解决啦</p>
+<p><a href=""><img src="https://s3.ax1x.com/2020/12/08/rSlBeH.png" alt="rSlBeH.png"></a></p>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Yuzi&#39;s Blog
+            <span class="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            @Yuzi
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+    </body>
+</html>

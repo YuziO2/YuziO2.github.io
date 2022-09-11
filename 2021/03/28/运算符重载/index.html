@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<html lang="zh_CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>运算符重载 | Yuzi&#39;s Blog</title>
+        <meta name="author" content="Yuzi">
+        <meta name="description" content="A blog which include my study and life">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/lxh.png">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <canvas id="background"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+        <script src="/js/anime.js"></script>
+        <canvas id="fireworks"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:2147483647"></canvas>
+        <script src="/js/fireworks.js"></script>
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p><div><img alt="loading" src="/loading.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Yuzi's Blog</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;about</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;tags</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;Yuzi's Blog</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>运算符重载 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2021/3/28
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/c/" style="color: #03a9f4">
+                    c++
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <p>好久没写博客了，趁今天无聊，学习了一下怎样用github与vs连接，用git来管理代码，然后翻出来上周的面向对象的运算符重载的code，遂想着写一下博客</p>
+<span id="more"></span>
+
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>有两个均为m行n列的矩阵A，B，求其和，赋值给C，重载“+”、“&gt;&gt;”、“&#x3D;”、和“&lt;&lt;”</p>
+<p><del>幸好是加法，如果是乘法直接裂开</del></p>
+<h1 id="初版"><a href="#初版" class="headerlink" title="初版"></a>初版</h1><p>见：<a target="_blank" rel="noopener" href="https://github.com/Yuzi19/Object-oriented-programming/blob/master/matrix_reload/old/0.1.cpp">https://github.com/Yuzi19/Object-oriented-programming/blob/master/matrix_reload/old/0.1.cpp</a></p>
+<p>此处代码运行了就会出大问题（实际上各种小问题也出过，但是在经过我的各种努力过后也能解决了）</p>
+<h2 id="各个重载函数"><a href="#各个重载函数" class="headerlink" title="各个重载函数"></a>各个重载函数</h2><h3 id=""><a href="#" class="headerlink" title="+"></a>+</h3><pre><code class="c++">matrix operator+(const matrix &amp;A, const matrix &amp;B)
+&#123;
+    //matrix C(A.m, A.n);
+    double **T;
+    T = new double*[A.m];
+    for (int i = 0; i &lt; A.m; i++)
+    &#123;
+        T[i] = new double[A.n];
+    &#125;
+    for (int i = 0; i &lt; A.m; i++)
+    &#123;
+        for (int k = 0; k &lt; A.n; k++)
+        &#123;
+            //C.a[i][k] = A.a[i][k] + B.a[i][k];
+            T[i][k] = A.a[i][k] + B.a[i][k];
+        &#125;
+    &#125;
+    //return C; 不能像注释部分这样写，因为一旦出了函数就会调用析构函数，就会导致赋值时出错！！！（找不到指针）
+    return matrix(T, A.m, A.n); //此处重载了构造函数
+&#125;
+</code></pre>
+<p>不需要看注释，注释的原因写错了，这两种写法都可以，错误不在于析构函数，而是在于没有写赋值构造函数！！（这一点下面要讲）</p>
+<p>原理就是把两项的每一项相加</p>
+<h3 id="x3D"><a href="#x3D" class="headerlink" title="&#x3D;"></a>&#x3D;</h3><pre><code class="c++">matrix&amp; matrix::operator=(const matrix &amp; A)
+&#123;
+    m = A.m; n = A.n;
+    for (int i = 0; i &lt; A.m; i++)
+    &#123;
+        for (int k = 0; k &lt; A.n; k++)
+        &#123;
+            a[i][k] = A.a[i][k];
+        &#125;
+    &#125;
+    return *this;
+    // TODO: 在此处插入 return 语句
+&#125;
+</code></pre>
+<p>其中的m，n都是被赋值的类的东西，最后返回的也是被赋值的类的地址</p>
+<h3 id="lt-lt"><a href="#lt-lt" class="headerlink" title="&lt;&lt;"></a>&lt;&lt;</h3><pre><code class="c++">ostream&amp; operator&lt;&lt;(ostream&amp; output, const matrix&amp; A)
+&#123;
+    for (int i = 0; i &lt; A.m; i++)
+    &#123;
+        for (int k = 0; k &lt; A.n; k++)
+        &#123;
+            cout &lt;&lt; A.a[i][k] &lt;&lt; &quot;  &quot;;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+    return output;
+    // TODO: 在此处插入 return 语句
+&#125;
+</code></pre>
+<h3 id="gt-gt"><a href="#gt-gt" class="headerlink" title="&gt;&gt;"></a>&gt;&gt;</h3><pre><code class="c++">istream&amp; operator&gt;&gt;(istream&amp; input, matrix&amp; A)
+&#123;
+
+    for (int i = 0; i &lt; A.m; i++)
+    &#123;
+        for (int k = 0; k &lt; A.n; k++)
+        &#123;
+            cin &gt;&gt; A.a[i][k];
+        &#125;
+    &#125;
+    return input;
+    // TODO: 在此处插入 return 语句
+&#125;
+</code></pre>
+<p>十分的普通和正常，就是把输入输出改成了依次输出矩阵</p>
+<h2 id="构造函数和析构函数"><a href="#构造函数和析构函数" class="headerlink" title="构造函数和析构函数"></a>构造函数和析构函数</h2><p>这里的矩阵就是用二维数组来存储的，所以构造和析构要参照二级数组的方法【顺便还可以弄成动态数组】</p>
+<h3 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h3><pre><code class="c++">matrix::matrix(int m, int n)
+&#123;
+    this-&gt;m = m; this-&gt;n = n;
+    a = new double*[m];
+    for (int i = 0; i &lt; m; i++)
+    &#123;
+        a[i] = new double[n];
+    &#125;
+&#125;
+</code></pre>
+<p>a是一个有m个元素的数组，每一个元素都是一个double类型的指针，然后开始for，让每个元素的指针都指向一个double类型的数组，这样，一个二维数组就完成了</p>
+<h3 id="析构"><a href="#析构" class="headerlink" title="析构"></a>析构</h3><pre><code class="c++">matrix::~matrix()
+&#123;
+    for (int i = 0; i &lt; m; i++)
+    &#123;
+        if (a[i] != NULL)
+        &#123;
+            delete[]a[i];
+            a[i] = NULL;
+        &#125;
+    &#125;
+    delete[]a;
+    a = NULL;
+&#125;
+</code></pre>
+<p>没啥好说的，注意一下格式</p>
+<h1 id="老师的改版"><a href="#老师的改版" class="headerlink" title="老师的改版"></a>老师的改版</h1><p>那么，问题出在哪里呢？？</p>
+<p>原来是————没有复制构造函数！！！！</p>
+<p>因为这里用到了数组，有数组就有指针，有指针就不能用系统自带的浅复制！！！因为浅复制把地址也给过去了，就会报错！！</p>
+<h2 id="复制构造函数"><a href="#复制构造函数" class="headerlink" title="复制构造函数"></a>复制构造函数</h2><pre><code class="c++">matrix::matrix(const matrix&amp; M) &#123;
+    this-&gt;m = M.m; this-&gt;n = M.n;
+    this-&gt;a = new double*[m];
+    for (int i = 0; i &lt; m; i++)
+    &#123;
+        this-&gt;a[i] = new double[n];
+    &#125;
+    for (int i = 0; i &lt; m; i++) &#123;
+        for (int j = 0; j &lt; n; j++)
+            this-&gt;a[i][j] = M.a[i][j];
+    &#125;
+&#125;
+</code></pre>
+<p>复制构造函数实际上就是重载了一个构造函数，参数是一个类，这里就是重新创了内存空间，然后把值一个个地赋给新空间里，就不会有浅复制的错误了！！</p>
+<p>代码详见：<a target="_blank" rel="noopener" href="https://github.com/Yuzi19/Object-oriented-programming/blob/master/matrix_reload/matrix_reload.cpp">https://github.com/Yuzi19/Object-oriented-programming/blob/master/matrix_reload/matrix_reload.cpp</a></p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>跑一下程序，答案正确！！下一次不要忘记了复制构造函数哦！</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/cpzaxe"><img src="https://z3.ax1x.com/2021/03/28/cpzaxe.png" alt="cpzaxe.png"></a></p>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 Yuzi&#39;s Blog
+            <span class="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            @Yuzi
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+    </body>
+</html>
