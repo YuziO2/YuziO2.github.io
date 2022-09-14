@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-        <title>一个选择排序函数 | Yuzi&#39;s Blog</title>
+        <title>Tags: AI | Yuzi&#39;s Blog</title>
         <meta name="author" content="Yuzi">
         <meta name="description" content="A blog which include my study and life">
         <meta name="keywords" content="">
@@ -126,85 +126,93 @@
 </nav>
                     </div>
                     <div id="main">
-                        
-<div class="article">
-    <div>
-        <h1>一个选择排序函数 </h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2020/12/1
+                         
+<div class="categories-tags">
+    
+    <div class="all-s">
+        
+        
+        <span>
+            <a href="/tags/AI/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+                </span>
+                AI
+            </a>
         </span>
         
         
-        <span class="tags">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/C/" style="color: #ffa2c4">
-                    C++
+        <span>
+            <a href="/tags/hexo/" style="background: #ff7d73">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+                </span>
+                hexo
+            </a>
+        </span>
+        
+        
+        <span>
+            <a href="/tags/C/" style="background: #00a596">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+                </span>
+                C++
+            </a>
+        </span>
+        
+        
+        <span>
+            <a href="/tags/nodejs/" style="background: #ffa2c4">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+                </span>
+                nodejs
+            </a>
+        </span>
+        
+        
+        <span>
+            <a href="/tags/数据结构/" style="background: #00bcd4">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+                </span>
+                数据结构
+            </a>
+        </span>
+        
+    </div>
+    <div id="archives">
+        
+        <div class="timeline">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2022/9/14</div>
+                <a href="/posts/ec60aaf8.html">
+                    <h3>人工智能实验1</h3>
                 </a>
-            </span>
-            
-        </span>
+                <div class="info">
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/AI/" style="color: #00a596">
+                                AI
+                            </a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
         
     </div>
-    <div class="content" v-pre>
-        <p>Mark一下</p>
-<span id="more"></span>
-
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>每一趟从待排序的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E5%85%83%E7%B4%A0">数据元素</a>中选出最小（或最大）的一个元素，顺序放在已排好序的数列的最后，直到全部待排序的数据元素排完。</p>
-<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F">选择排序</a>是不稳定的排序方法(很多教科书都说选择排序是不稳定的，但是，完全可以将其实现成稳定的排序方法)。</p>
-<p>n个记录的文件的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%9B%B4%E6%8E%A5%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F">直接选择排序</a>可经过n-1趟直接选择排序得到有序结果：</p>
-<p>①初始状态：无序区为R[1..n]，有序区为空。</p>
-<p>②第1趟排序</p>
-<p>在无序区R[1..n]中选出关键字最小的记录R[k]，将它与无序区的第1个记录R[1]交换，使R[1..1]和R[2..n]分别变为记录个数增加1个的新有序区和记录个数减少1个的新无序区。</p>
-<p>……</p>
-<p>③第i趟排序</p>
-<p>第i趟排序开始时，当前有序区和无序区分别为R[1..i-1]和R(1≤i≤n-1)。该趟排序从当前无序区中选出关键字最小的记录 R[k]，将它与无序区的第1个记录R交换，使R[1..i]和R分别变为记录个数增加1个的新有序区和记录个数减少1个的新无序区。</p>
-<p>这样，n个记录的文件的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%9B%B4%E6%8E%A5%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F">直接选择排序</a>可经过n-1趟直接选择排序得到有序结果。</p>
-<h3 id="优劣"><a href="#优劣" class="headerlink" title="优劣"></a>优劣</h3><p>优点：移动数据的次数已知（n-1次）。</p>
-<p>缺点：比较次数多，不稳定。</p>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><pre><code class="c++">void compositor(int w,int x, int y,int z)
-&#123;
-    int a[4], i, j, temp, b;
-    a[0] = w; a[1] = x; a[2] = y; a[3] = z;
-    for (i = 0; i &lt; 4 - 1; i++)
-    &#123;
-        temp = i;
-        for (j = i + 1; j &lt; 4; j++)
-        &#123;
-            if (a[temp] &gt; a[j])
-                temp = j;
-        &#125;
-        if (i != temp)
-        &#123;
-            b = a[temp];
-            a[temp] = a[i];
-            a[i] = b;
-        &#125;
-    &#125;
-    for (i = 0; i &lt; 4; i++)
-        cout &lt;&lt; a[i]&lt;&lt;&quot; &quot;;
-    cout &lt;&lt; endl;
-&#125;
-</code></pre>
-<p>本函数是给4个数排序后输出，该函数可根据实际情况更改</p>
-
-    </div>
-    
-    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.7.2/gitalk.min.css">
-    <div id="comment">
-        <div id="gitalk-container">
-        </div>
-    </div>
-    
 </div>
                          
 <footer id="footer">
@@ -233,24 +241,6 @@
         <script src="/js/particlex.js"></script>
         <script src="/js/showimg.js"></script>
         
-<script src="https://cdn.staticfile.org/gitalk/1.7.2/gitalk.min.js"></script>
-<script>
-    var clientID = "f13d5e7fa9dfd8626a4f", clientSecret = "43b168b60019f8bb14bc75134ce36bee4084828f";
-    
-    const gitalk = new Gitalk({
-        clientID: clientID,
-        clientSecret: clientSecret,
-        repo: "blog-comment",
-        owner: "Yuzi0201",
-        admin: ["Yuzi0201"],
-        language: "zh-CN",
-        id: location.pathname,
-        distractionFreeMode: false,
-        
-    })
-    gitalk.render("gitalk-container")
-</script>
-
 
     </body>
 </html>

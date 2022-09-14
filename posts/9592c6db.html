@@ -147,7 +147,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/C/" style="color: #ffa2c4">
+                <a href="/tags/C/" style="color: #00a596">
                     C++
                 </a>
             </span>
@@ -222,6 +222,12 @@ double f3(double x)
 
     </div>
     
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.7.2/gitalk.min.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
 </div>
                          
 <footer id="footer">
@@ -250,6 +256,24 @@ double f3(double x)
         <script src="/js/particlex.js"></script>
         <script src="/js/showimg.js"></script>
         
+<script src="https://cdn.staticfile.org/gitalk/1.7.2/gitalk.min.js"></script>
+<script>
+    var clientID = "f13d5e7fa9dfd8626a4f", clientSecret = "43b168b60019f8bb14bc75134ce36bee4084828f";
+    
+    const gitalk = new Gitalk({
+        clientID: clientID,
+        clientSecret: clientSecret,
+        repo: "blog-comment",
+        owner: "Yuzi0201",
+        admin: ["Yuzi0201"],
+        language: "zh-CN",
+        id: location.pathname,
+        distractionFreeMode: false,
+        
+    })
+    gitalk.render("gitalk-container")
+</script>
+
 
     </body>
 </html>

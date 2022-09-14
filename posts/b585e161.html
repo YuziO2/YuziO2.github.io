@@ -147,7 +147,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/hexo/" style="color: #ffa2c4">
+                <a href="/tags/hexo/" style="color: #00a596">
                     hexo
                 </a>
             </span>
@@ -163,6 +163,12 @@
 <p>在大一刚刚入门hexo的时候简直是懵懂无知，就这么跌跌撞撞地搭建好了，今日回头再看，hexo也支持了使用<code>npm</code>，各种操作行云流水，再加上强大的教程，不一会就搭建好了！</p>
 <p>之后可以考虑把一些笔记给放上来。</p>
 
+    </div>
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.7.2/gitalk.min.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
     </div>
     
 </div>
@@ -193,6 +199,24 @@
         <script src="/js/particlex.js"></script>
         <script src="/js/showimg.js"></script>
         
+<script src="https://cdn.staticfile.org/gitalk/1.7.2/gitalk.min.js"></script>
+<script>
+    var clientID = "f13d5e7fa9dfd8626a4f", clientSecret = "43b168b60019f8bb14bc75134ce36bee4084828f";
+    
+    const gitalk = new Gitalk({
+        clientID: clientID,
+        clientSecret: clientSecret,
+        repo: "blog-comment",
+        owner: "Yuzi0201",
+        admin: ["Yuzi0201"],
+        language: "zh-CN",
+        id: location.pathname,
+        distractionFreeMode: false,
+        
+    })
+    gitalk.render("gitalk-container")
+</script>
+
 
     </body>
 </html>
