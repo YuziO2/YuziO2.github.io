@@ -147,7 +147,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/hexo/" style="color: #00a596">
+                <a href="/tags/hexo/" style="color: #ff7d73">
                     hexo
                 </a>
             </span>
@@ -265,8 +265,8 @@
             commentCount: &quot;&lt;%- theme.waline.commentCount %&gt;&quot;,
             pageview: &quot;&lt;%- theme.waline.pageview %&gt;&quot;,
             emoji: &quot;&lt;%- theme.waline.emoji %&gt;&quot;.split(&#39;,&#39;),
-            meta: [&quot;&lt;%- theme.waline.meta %&gt;&quot;],
-            requiredMeta: [&quot;&lt;%- theme.waline.requiredMeta %&gt;&quot;],
+            meta: &quot;&lt;%- theme.waline.meta %&gt;&quot;.split(&#39;,&#39;),
+            requiredMeta: &quot;&lt;%- theme.waline.requiredMeta %&gt;&quot;.split(&#39;,&#39;),
             lang: &quot;&lt;%- theme.waline.lang %&gt;&quot;,
             wordLimit: parseInt(&quot;&lt;%- theme.waline.wordLimit %&gt;&quot;),
             pageSize: &quot;&lt;%- theme.waline.pageSize %&gt;&quot;,
