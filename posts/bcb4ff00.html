@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-        <title>一个选择排序函数 | Yuzi&#39;s Blog</title>
+        <title>在ParticleX上使用Waline作为评论区 | Yuzi&#39;s Blog</title>
         <meta name="author" content="Yuzi">
         <meta name="description" content="A blog which include my study and life">
         <meta name="keywords" content="">
@@ -129,14 +129,14 @@
                         
 <div class="article">
     <div>
-        <h1>一个选择排序函数 </h1>
+        <h1>在ParticleX上使用Waline作为评论区 </h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
             </span>
-            2020/12/1
+            2022/9/15
         </span>
         
         
@@ -147,8 +147,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/C/" style="color: #ff7d73">
-                    C++
+                <a href="/tags/hexo/" style="color: #ffa2c4">
+                    hexo
                 </a>
             </span>
             
@@ -156,46 +156,126 @@
         
     </div>
     <div class="content" v-pre>
-        <p>Mark一下</p>
+        <p>珍爱生命，远离高权限评论插件</p>
 <span id="more"></span>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BC%83%E7%94%A8gitalk">为什么弃用Gitalk?</a></li>
+<li><a href="#%E9%83%A8%E7%BD%B2vercel">部署Vercel</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8supabase%E5%81%9A%E6%95%B0%E6%8D%AE%E5%BA%93">使用SupaBase做数据库</a></li>
+<li><a href="#%E5%89%8D%E7%AB%AF%E5%BC%95%E5%85%A5">前端引入</a></li>
+</ol>
+<h1 id="为什么弃用Gitalk"><a href="#为什么弃用Gitalk" class="headerlink" title="为什么弃用Gitalk?"></a>为什么弃用Gitalk?</h1><p>昨天，我使用ParticleX自带的Gitalk弄好了评论区系统，能用，但是当我邀请舍友来参与评论时，一名舍友发出了质疑：这个评论索要的权限也太高了吧！</p>
+<p><img src="http://static.yuzi0201.top/picture/bcb4ff00/image_AgNA1mpbUW.png"></p>
+<p>仔细一看，居然要<strong>读写所有公开仓库</strong>的权限，看着实在是太吓人了，为什么会这样？</p>
+<p>在我仔细搜索一番后，发现v2ex论坛早已有相关<a target="_blank" rel="noopener" href="https://www.v2ex.com/t/535608" title="讨论">讨论</a>，因为他的实现原理是使用一个repo的issue来存储评论区，那要发评论就是操作你的账号往该仓库的issue里发东西，而由于GitHub Oauth的权限粒度的问题，要想实现上述功能，就必须要这么高的权限。而这个权限的token貌似就存在localstorage中，博主只需稍微在网页上写一点Ajax，就能拿到评论者的GitHub所有仓库的读写权限！</p>
+<p>不光如此，使用gitalk，该Oauth的clientID和secret都会被直接暴露在前端！对于博主来说也是很危险的行为：</p>
+<p><img src="http://static.yuzi0201.top/picture/bcb4ff00/image_sBqWvxf2Y_.png"></p>
+<p>所以，我必须寻找一个合适的评论系统，规避以上问题，经过我的一番搜寻，Waline便成为我选择的对象，它的优点有：</p>
+<ul>
+<li><p>不会暴露评论者和博主的隐私</p>
+</li>
+<li><p>可选择匿名评论，降低评论门槛（可选关闭）</p>
+</li>
+<li><p>使用Vercel部署，多种数据库可供选择，速度快</p>
+</li>
+<li><p>也可使用多种第三方账号登录，登录时只索要个人信息的最基础权限</p>
+</li>
+</ul>
+<h1 id="部署Vercel"><a href="#部署Vercel" class="headerlink" title="部署Vercel"></a>部署Vercel</h1><p>首先，上<a target="_blank" rel="noopener" href="https://github.com/walinejs/waline" title="官方仓库地址">官方仓库地址</a>和<a target="_blank" rel="noopener" href="https://waline.js.org/" title="官方网站">官方网站</a>，其实跟着官方网站的教程走，也可以很快搭好。</p>
+<p>打开教程，看到<a target="_blank" rel="noopener" href="https://waline.js.org/guide/get-started.html#vercel-%E9%83%A8%E7%BD%B2-%E6%9C%8D%E5%8A%A1%E7%AB%AF" title="部署">部署</a>部分，可以看到官方给的一键部署链接：<a target="_blank" rel="noopener" href="https://vercel.com/new/clone?repository-url=https://github.com/walinejs/waline/tree/main/example" title="Deploy">Deploy</a></p>
+<p>点进去后，选择GitHub部署，输入一个未被使用的名字，然后点击Create。（注：一定要勾选创建私有仓库！）</p>
+<p>创建好后，就可以配置数据库了。</p>
+<h1 id="使用SupaBase做数据库"><a href="#使用SupaBase做数据库" class="headerlink" title="使用SupaBase做数据库"></a>使用SupaBase做数据库</h1><p>这个东西是一个“BaaS”的东西，叫后端即服务，是昨天舍友推荐给我的，没想到今天就用上了，官网也有对应部署<a target="_blank" rel="noopener" href="https://waline.js.org/guide/server/databases.html#postgresql" title="教程">教程</a>。</p>
+<p>注册好后，将官方提供的<a target="_blank" rel="noopener" href="https://github.com/walinejs/waline/blob/main/assets/waline.pgsql" title="创建表的SQL">创建表的SQL</a>直接扔进SQL Editor中，运行，Over！</p>
+<p><img src="http://static.yuzi0201.top/picture/bcb4ff00/image_MXQ1IKAJWf.png"></p>
+<p>创建好后，就把连接数据库的字段放进Vercel的环境变量中，其值在Supabase的“Settings→Database”页面往下划：</p>
+<p><img src="http://static.yuzi0201.top/picture/bcb4ff00/image_URhlkUX3OQ.png"></p>
+<p>然后就去Vercel的“Settings→Environment Variables”里增加环境变量，对照文档里的添加就行了：</p>
+<p><img src="http://static.yuzi0201.top/picture/bcb4ff00/image_j3ISQpPOLZ.png"></p>
+<p>密码是你刚刚创建项目时候输入的，如果忘了可以在下面重置。</p>
+<hr>
+<p>当然，这个评论系统还有诸多实用功能，如 使用邮箱进行提醒 等，可参照官网文档进行设置</p>
+<h1 id="前端引入"><a href="#前端引入" class="headerlink" title="前端引入"></a>前端引入</h1><p>我在稍后会向ParticleX的仓库提PR，向其添加内置Waline的功能，可以直接在主题设置里调：</p>
+<p>关于自定义Vercel地址，详见：“Settings→Domains”</p>
+<p><code>_config.yml</code>：</p>
+<pre><code class="yaml">waline:
+    # New! Whether enable this plugin
+    enable: true
+    # Waline server address url, you should set this to your own link
+    serverURL: #此处填写Vercel部署的地址
+    # Custom locales
+    # locale:
+    #   placeholder: Welcome to comment # Comment box placeholder
 
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>每一趟从待排序的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E5%85%83%E7%B4%A0">数据元素</a>中选出最小（或最大）的一个元素，顺序放在已排好序的数列的最后，直到全部待排序的数据元素排完。</p>
-<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F">选择排序</a>是不稳定的排序方法(很多教科书都说选择排序是不稳定的，但是，完全可以将其实现成稳定的排序方法)。</p>
-<p>n个记录的文件的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%9B%B4%E6%8E%A5%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F">直接选择排序</a>可经过n-1趟直接选择排序得到有序结果：</p>
-<p>①初始状态：无序区为R[1..n]，有序区为空。</p>
-<p>②第1趟排序</p>
-<p>在无序区R[1..n]中选出关键字最小的记录R[k]，将它与无序区的第1个记录R[1]交换，使R[1..1]和R[2..n]分别变为记录个数增加1个的新有序区和记录个数减少1个的新无序区。</p>
-<p>……</p>
-<p>③第i趟排序</p>
-<p>第i趟排序开始时，当前有序区和无序区分别为R[1..i-1]和R(1≤i≤n-1)。该趟排序从当前无序区中选出关键字最小的记录 R[k]，将它与无序区的第1个记录R交换，使R[1..i]和R分别变为记录个数增加1个的新有序区和记录个数减少1个的新无序区。</p>
-<p>这样，n个记录的文件的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%9B%B4%E6%8E%A5%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F">直接选择排序</a>可经过n-1趟直接选择排序得到有序结果。</p>
-<h3 id="优劣"><a href="#优劣" class="headerlink" title="优劣"></a>优劣</h3><p>优点：移动数据的次数已知（n-1次）。</p>
-<p>缺点：比较次数多，不稳定。</p>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><pre><code class="c++">void compositor(int w,int x, int y,int z)
-&#123;
-    int a[4], i, j, temp, b;
-    a[0] = w; a[1] = x; a[2] = y; a[3] = z;
-    for (i = 0; i &lt; 4 - 1; i++)
-    &#123;
-        temp = i;
-        for (j = i + 1; j &lt; 4; j++)
-        &#123;
-            if (a[temp] &gt; a[j])
-                temp = j;
-        &#125;
-        if (i != temp)
-        &#123;
-            b = a[temp];
-            a[temp] = a[i];
-            a[i] = b;
-        &#125;
-    &#125;
-    for (i = 0; i &lt; 4; i++)
-        cout &lt;&lt; a[i]&lt;&lt;&quot; &quot;;
-    cout &lt;&lt; endl;
-&#125;
+    # If false, comment count will only be displayed in post page, not in home page
+    commentCount: true
+
+    # Pageviews count, Note: You should not enable both `waline.pageview` and `leancloud_visitors`.
+    pageview: false
+
+    # Custom emoji
+    emoji:
+        - https://unpkg.com/@waline/emojis@1.0.1/weibo
+        - https://unpkg.com/@waline/emojis@1.0.1/alus
+        - https://unpkg.com/@waline/emojis@1.0.1/bilibili
+        - https://unpkg.com/@waline/emojis@1.0.1/qq
+        - https://unpkg.com/@waline/emojis@1.0.1/tieba
+        - https://unpkg.com/@waline/emojis@1.0.1/tw-emoji
+
+    # Comment infomation, valid meta are nick, mail and link
+    meta:
+        - nick
+        - mail
+        - link
+
+    # Set required meta field, e.g.: [nick] | [nick, mail]
+    requiredMeta:
+        - nick
+
+    # Language, available values: en-US, zh-CN, zh-TW, pt-BR, ru-RU, jp-JP
+    lang: zh-CN
+
+    # Word limit, no limit when setting to 0
+    wordLimit: 0
+
+    # Whether enable login, can choose from &#39;enable&#39;, &#39;disable&#39; and &#39;force&#39;
+    login: enable
+
+    # comment per page
+    pageSize: 10
 </code></pre>
-<p>本函数是给4个数排序后输出，该函数可根据实际情况更改</p>
+<p>修改的地方如下：</p>
+<p><code>post.ejs</code>：</p>
+<pre><code class="javascript">    &lt;% if (theme.waline.enable) &#123; %&gt;
+        &lt;!-- 样式文件 --&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/@waline/client@v2/dist/waline.css&quot; /&gt;
+        &lt;div id=&quot;comment&quot;&gt;
+            &lt;div id=&quot;waline-container&quot;&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;% &#125; %&gt;
+</code></pre>
+<p><code>script.ejs</code>：</p>
+<pre><code class="javascript">&lt;% if (theme.waline.enable &amp;&amp; is_post()) &#123; %&gt;
+    &lt;script src=&quot;https://unpkg.com/@waline/client@v2/dist/waline.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        Waline.init(&#123;
+            el: &#39;#waline-container&#39;,
+            serverURL: &quot;&lt;%- theme.waline.serverURL %&gt;&quot;,
+            commentCount: &quot;&lt;%- theme.waline.commentCount %&gt;&quot;,
+            pageview: &quot;&lt;%- theme.waline.pageview %&gt;&quot;,
+            emoji: &quot;&lt;%- theme.waline.emoji %&gt;&quot;.split(&#39;,&#39;),
+            meta: [&quot;&lt;%- theme.waline.meta %&gt;&quot;],
+            requiredMeta: [&quot;&lt;%- theme.waline.requiredMeta %&gt;&quot;],
+            lang: &quot;&lt;%- theme.waline.lang %&gt;&quot;,
+            wordLimit: parseInt(&quot;&lt;%- theme.waline.wordLimit %&gt;&quot;),
+            pageSize: &quot;&lt;%- theme.waline.pageSize %&gt;&quot;,
+            login: &quot;&lt;%- theme.waline.login %&gt;&quot;,
+        &#125;);
+    &lt;/script&gt;
+    &lt;% &#125; %&gt;
+</code></pre>
+<p>祝各位都能用上Waline！有问题评论区见！</p>
 
     </div>
     
