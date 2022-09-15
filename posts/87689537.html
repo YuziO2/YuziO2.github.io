@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-        <title>Tags: Nodejs | Yuzi&#39;s Blog</title>
+        <title>搭建图床 | Yuzi&#39;s Blog</title>
         <meta name="author" content="Yuzi">
         <meta name="description" content="A blog which include my study and life">
         <meta name="keywords" content="">
@@ -126,93 +126,70 @@
 </nav>
                     </div>
                     <div id="main">
-                         
-<div class="categories-tags">
-    
-    <div class="all-s">
-        
-        
-        <span>
-            <a href="/tags/hexo/" style="background: #ff7d73">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                hexo
-            </a>
+                        
+<div class="article">
+    <div>
+        <h1>搭建图床 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/15
         </span>
         
         
-        <span>
-            <a href="/tags/C/" style="background: #ffa2c4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                C++
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/nodejs/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                nodejs
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/AI/" style="background: #ffa2c4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                AI
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/数据结构/" style="background: #00a596">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                数据结构
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/hexo/" style="color: #03a9f4">
+                    hexo
+                </a>
+            </span>
+            
         </span>
         
     </div>
-    <div id="archives">
-        
-        <div class="timeline">
-            <div class="timeline-tail"></div>
-            <div class="timeline-content">
-                <div class="item-time">2022/9/11</div>
-                <a href="/posts/7645f773.html">
-                    <h3>使用Node-Xlsx来操作表格文件</h3>
-                </a>
-                <div class="info">
-                    
-                    
-                    <span class="tags">
-                        <span class="icon">
-                            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                        </span>
-                        
-                        <span class="tag">
-                            
-                            <a href="/tags/nodejs/" style="color: #00bcd4">
-                                nodejs
-                            </a>
-                        </span>
-                        
-                    </span>
-                    
-                </div>
+    <div class="content" v-pre>
+        <p>给博客搭了个图床~</p>
+<span id="more"></span>
+
+<p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://sspai.com/post/61624">https://sspai.com/post/61624</a></p>
+<p>不过因为我的域名没有备案（个人备什么案），所以我购买了香港的包，具体步骤</p>
+<ol>
+<li><p>首先去阿里云开通OSS对象存储</p>
+</li>
+<li><p>购买资源包，地域选择香港🇭🇰，其他默认即可，半年5块钱40G，还是挺便宜的。</p>
+<p><img src="http://static.yuzi0201.top/picture/87689537/image_2iXR8lciEy.png"></p>
+</li>
+<li><p>然后创建bucket，地域选香港，权限选择公共读。</p>
+<p><img src="http://static.yuzi0201.top/picture/87689537/image_RCIbMQYea3.png"></p>
+</li>
+<li><p>创建好后，在“权限管理→防盗链”中开启防盗链，防止流量被滥用</p>
+<p><img src="http://static.yuzi0201.top/picture/87689537/image_TM9A8iWGm0.png"></p>
+</li>
+<li><p>在“传输管理→域名管理”中绑定域名，先验证，去域名商处验证阿里云提供的TXT，验证完后，在域名提供商处加入CNAME的DNS记录，指向OSS的域名</p>
+</li>
+<li><p>在首页下载oss-browser图形化管理工具，配置好用户，然后在本地登录运行，这样就能很方便地上传和管理文件了！</p>
+</li>
+</ol>
+<h2 id="Fin"><a href="#Fin" class="headerlink" title="Fin"></a>Fin</h2>
+    </div>
+    
+    
+        <!-- 样式文件 -->
+        <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+        <div id="comment">
+            <div id="waline-container">
             </div>
         </div>
         
-    </div>
 </div>
                          
 <footer id="footer">
@@ -242,5 +219,22 @@
         <script src="/js/showimg.js"></script>
         
 
+    <script src="https://unpkg.com/@waline/client@v2/dist/waline.js"></script>
+    <script>
+        waline = Waline.init({
+            el: '#waline-container',
+            serverURL: "https://comments.yuzi0201.top",
+            commentCount: "true",
+            pageview: "false",
+            emoji: "https://unpkg.com/@waline/emojis@1.0.1/weibo,https://unpkg.com/@waline/emojis@1.0.1/alus,https://unpkg.com/@waline/emojis@1.0.1/bilibili,https://unpkg.com/@waline/emojis@1.0.1/qq,https://unpkg.com/@waline/emojis@1.0.1/tieba,https://unpkg.com/@waline/emojis@1.0.1/tw-emoji".split(','),
+            meta: ["nick,mail,link"],
+            requiredMeta: ["nick"],
+            lang: "zh-CN",
+            wordLimit: parseInt("0"),
+            pageSize: "10",
+            login: "enable",
+        });
+    </script>
+    
     </body>
 </html>
