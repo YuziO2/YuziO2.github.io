@@ -147,7 +147,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/hexo/" style="color: #00a596">
+                <a href="/tags/hexo/" style="color: #00bcd4">
                     hexo
                 </a>
             </span>
@@ -204,19 +204,24 @@
 
     <script src="https://unpkg.com/@waline/client@v2/dist/waline.js"></script>
     <script>
-        waline = Waline.init({
-            el: '#waline-container',
-            serverURL: "https://comments.yuzi0201.top",
-            commentCount: "true",
-            pageview: "false",
-            emoji: "https://unpkg.com/@waline/emojis@1.0.1/weibo,https://unpkg.com/@waline/emojis@1.0.1/alus,https://unpkg.com/@waline/emojis@1.0.1/bilibili,https://unpkg.com/@waline/emojis@1.0.1/qq,https://unpkg.com/@waline/emojis@1.0.1/tieba,https://unpkg.com/@waline/emojis@1.0.1/tw-emoji".split(','),
-            meta: "nick,mail,link".split(','),
-            requiredMeta: "nick".split(','),
-            lang: "zh-CN",
-            wordLimit: parseInt("0"),
-            pageSize: "10",
-            login: "enable",
-        });
+        let locale = {}
+            
+                locale["placeholder"]="欢迎评论(填写邮箱可在被回复时收到邮件提醒)"
+                    
+            waline = Waline.init({
+                el: '#waline-container',
+                serverURL: "https://comments.yuzi0201.top",
+                commentCount: "true",
+                pageview: "false",
+                emoji: "https://unpkg.com/@waline/emojis@1.0.1/weibo,https://unpkg.com/@waline/emojis@1.0.1/alus,https://unpkg.com/@waline/emojis@1.0.1/bilibili,https://unpkg.com/@waline/emojis@1.0.1/qq,https://unpkg.com/@waline/emojis@1.0.1/tieba,https://unpkg.com/@waline/emojis@1.0.1/tw-emoji".split(','),
+                meta: "nick,mail,link".split(','),
+                requiredMeta: "nick".split(','),
+                lang: "zh-CN",
+                wordLimit: parseInt("0"),
+                pageSize: "10",
+                login: "enable",
+                locale
+            });
     </script>
     
     </body>
