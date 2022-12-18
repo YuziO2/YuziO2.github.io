@@ -9,31 +9,43 @@
         <meta name="description" content="A blog which include my study and life">
         <meta name="keywords" content="">
         <link rel="icon" href="/images/lxh.png">
-        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
-        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <script src="https://cdn.staticfile.org/instant.page/5.1.1/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.2.1/js/all.min.js"></script>
+        <script src="https://cdn.staticfile.org/vue/3.2.45/vue.global.prod.min.js"></script>
+        
+        <script src="https://polyfill.io/v3/polyfill.min.js?features="></script>
         
         <link rel="stylesheet" href="/css/fonts.min.css">
         <link rel="stylesheet" href="/css/particlex.css">
         
-        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
-        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <canvas id="background"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
         <script src="/js/background.js"></script>
         <script src="/js/anime.js"></script>
-        <!-- <canvas id="fireworks" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:2147483647"></canvas> -->
-        <!-- <script src="/js/fireworks.js"></script> -->
         <script src="/js/firework2.js"></script>
     <meta name="generator" content="Hexo 6.3.0"></head>
     <body>
-        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p><div><img alt="loading" src="/loading.gif"></div></div></div></div></div>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:2147483647;justify-content:space-between;background:#fff;transition:all 0.3s ease-out;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none">
+    <div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center">
+        <div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center">
+            <div>
+                <h2>LOADING...</h2>
+                <p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p>
+                <div>
+                    <img alt="loading" src="/loading.gif">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         <div id="layout">
             <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
             <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
             <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
             <transition name="into">
-                <div v-show="show_page" style="display: -not-none">
-                    <div id="menu_show">
-                         
-<nav id="menu">
+                <div v-show="showpage" style="display: -not-none">
+                    <div id="menushow">
+                        <nav id="menu">
     <div class="desktop-menu">
         <a href="/">
             <span class="title">Yuzi's Blog</span>
@@ -65,14 +77,14 @@
         </a>
         
     </div>
-    <div :class="'phone-menu ' + menu_show" id="phone-menu">
-        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
-        <div :class="'title'" @click="menu_show = !menu_show">
+    <div :class="'phone-menu ' + menushow" id="phone-menu">
+        <div class="curtain" @click="menushow = !menushow" v-show="menushow"></div>
+        <div class="title" @click="menushow = !menushow">
             <i class="fa-solid fa-bars fa-fw"></i>
             <span>&emsp;Yuzi's Blog</span>
         </div>
         <transition name="slide">
-        <div class="items" v-show="menu_show">
+        <div class="items" v-show="menushow">
             
             <a href="/">
                 <div class="item">
@@ -125,10 +137,38 @@
 </nav>
                     </div>
                     <div id="main">
-                        
-<div id="archives">
+                        <div id="archives">
     
-    <div class="timeline">
+    
+    <div class="timeline" path="/posts/1ef2d696.html" style="z-index: 14">
+        <div class="timeline-tail"></div>
+        <div class="timeline-content">
+            <div class="item-time">2022/9/24</div>
+            <a href="/posts/1ef2d696.html">
+                <h3>WSL入坑记</h3>
+            </a>
+            <div class="info">
+                
+                
+                <span class="tags">
+                    <span class="icon">
+                        <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+                    </span>
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/linux/" style="color: #ff7d73">
+                            linux
+                        </a>
+                    </span>
+                    
+                </span>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="timeline" path="/posts/49f7102e.html" style="z-index: 13">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2022/9/19</div>
@@ -156,7 +196,7 @@
         </div>
     </div>
     
-    <div class="timeline">
+    <div class="timeline" path="/posts/bcb4ff00.html" style="z-index: 12">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2022/9/15</div>
@@ -173,7 +213,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/hexo/" style="color: #ff7d73">
+                        <a href="/tags/hexo/" style="color: #03a9f4">
                             hexo
                         </a>
                     </span>
@@ -184,7 +224,7 @@
         </div>
     </div>
     
-    <div class="timeline">
+    <div class="timeline" path="/posts/87689537.html" style="z-index: 11">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2022/9/15</div>
@@ -201,7 +241,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/hexo/" style="color: #00a596">
+                        <a href="/tags/hexo/" style="color: #03a9f4">
                             hexo
                         </a>
                     </span>
@@ -212,7 +252,7 @@
         </div>
     </div>
     
-    <div class="timeline">
+    <div class="timeline" path="/posts/ec60aaf8.html" style="z-index: 10">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2022/9/14</div>
@@ -229,7 +269,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/AI/" style="color: #ff7d73">
+                        <a href="/tags/AI/" style="color: #00bcd4">
                             AI
                         </a>
                     </span>
@@ -240,7 +280,7 @@
         </div>
     </div>
     
-    <div class="timeline">
+    <div class="timeline" path="/posts/b585e161.html" style="z-index: 9">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2022/9/11</div>
@@ -268,7 +308,7 @@
         </div>
     </div>
     
-    <div class="timeline">
+    <div class="timeline" path="/posts/7645f773.html" style="z-index: 8">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2022/9/11</div>
@@ -296,7 +336,7 @@
         </div>
     </div>
     
-    <div class="timeline">
+    <div class="timeline" path="/posts/bb31fc73.html" style="z-index: 7">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2021/10/26</div>
@@ -313,7 +353,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/数据结构/" style="color: #ff7d73">
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="color: #ffa2c4">
                             数据结构
                         </a>
                     </span>
@@ -324,7 +364,7 @@
         </div>
     </div>
     
-    <div class="timeline">
+    <div class="timeline" path="/posts/63fa63f8.html" style="z-index: 6">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2021/7/20</div>
@@ -352,7 +392,7 @@
         </div>
     </div>
     
-    <div class="timeline">
+    <div class="timeline" path="/posts/2bf420ab.html" style="z-index: 5">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2021/3/28</div>
@@ -369,7 +409,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/C/" style="color: #ff7d73">
+                        <a href="/tags/C/" style="color: #00bcd4">
                             C++
                         </a>
                     </span>
@@ -380,7 +420,7 @@
         </div>
     </div>
     
-    <div class="timeline">
+    <div class="timeline" path="/posts/9592c6db.html" style="z-index: 4">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2020/12/10</div>
@@ -397,7 +437,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/C/" style="color: #03a9f4">
+                        <a href="/tags/C/" style="color: #ffa2c4">
                             C++
                         </a>
                     </span>
@@ -408,7 +448,7 @@
         </div>
     </div>
     
-    <div class="timeline">
+    <div class="timeline" path="/posts/9537072.html" style="z-index: 3">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2020/12/8</div>
@@ -436,7 +476,7 @@
         </div>
     </div>
     
-    <div class="timeline">
+    <div class="timeline" path="/posts/a4379cc7.html" style="z-index: 2">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2020/12/1</div>
@@ -453,7 +493,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/C/" style="color: #00bcd4">
+                        <a href="/tags/C/" style="color: #03a9f4">
                             C++
                         </a>
                     </span>
@@ -464,7 +504,7 @@
         </div>
     </div>
     
-    <div class="timeline">
+    <div class="timeline" path="/posts/9c35c7aa.html" style="z-index: 1">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
             <div class="item-time">2020/11/17</div>
@@ -481,7 +521,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/C/" style="color: #ff7d73">
+                        <a href="/tags/C/" style="color: #00a596">
                             C++
                         </a>
                     </span>
@@ -492,9 +532,9 @@
         </div>
     </div>
     
+    
 </div>
-                         
-<footer id="footer">
+                        <footer id="footer">
     <div class="footer-wrap">
         <div>
             © 2020 - 2022 Yuzi&#39;s Blog
@@ -504,22 +544,22 @@
             @Yuzi
         </div>
         <div></div>
-        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
-                target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> & <a target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
         
     </div>
 </footer>
                     </div>
                 </div>
             </transition>
-            <div id="img_show">
-                <img id="img_content" alt="img_show">
+            <div id="showimg">
+                <img id="showimg-content" alt="showimg">
             </div>
         </div>
         <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
-        <script src="/js/particlex.js"></script>
-        <script src="/js/showimg.js"></script>
-        
+<script src="/js/function.js"></script>
+<script src="/js/particlex.js"></script>
+
+
 
     </body>
 </html>

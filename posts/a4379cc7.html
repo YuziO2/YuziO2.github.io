@@ -9,31 +9,43 @@
         <meta name="description" content="A blog which include my study and life">
         <meta name="keywords" content="">
         <link rel="icon" href="/images/lxh.png">
-        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
-        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <script src="https://cdn.staticfile.org/instant.page/5.1.1/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.2.1/js/all.min.js"></script>
+        <script src="https://cdn.staticfile.org/vue/3.2.45/vue.global.prod.min.js"></script>
+        
+        <script src="https://polyfill.io/v3/polyfill.min.js?features="></script>
         
         <link rel="stylesheet" href="/css/fonts.min.css">
         <link rel="stylesheet" href="/css/particlex.css">
         
-        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
-        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <canvas id="background"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
         <script src="/js/background.js"></script>
         <script src="/js/anime.js"></script>
-        <!-- <canvas id="fireworks" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:2147483647"></canvas> -->
-        <!-- <script src="/js/fireworks.js"></script> -->
         <script src="/js/firework2.js"></script>
     <meta name="generator" content="Hexo 6.3.0"></head>
     <body>
-        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p><div><img alt="loading" src="/loading.gif"></div></div></div></div></div>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:2147483647;justify-content:space-between;background:#fff;transition:all 0.3s ease-out;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none">
+    <div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center">
+        <div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center">
+            <div>
+                <h2>LOADING...</h2>
+                <p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p>
+                <div>
+                    <img alt="loading" src="/loading.gif">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         <div id="layout">
             <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
             <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
             <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
             <transition name="into">
-                <div v-show="show_page" style="display: -not-none">
-                    <div id="menu_show">
-                         
-<nav id="menu">
+                <div v-show="showpage" style="display: -not-none">
+                    <div id="menushow">
+                        <nav id="menu">
     <div class="desktop-menu">
         <a href="/">
             <span class="title">Yuzi's Blog</span>
@@ -65,14 +77,14 @@
         </a>
         
     </div>
-    <div :class="'phone-menu ' + menu_show" id="phone-menu">
-        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
-        <div :class="'title'" @click="menu_show = !menu_show">
+    <div :class="'phone-menu ' + menushow" id="phone-menu">
+        <div class="curtain" @click="menushow = !menushow" v-show="menushow"></div>
+        <div class="title" @click="menushow = !menushow">
             <i class="fa-solid fa-bars fa-fw"></i>
             <span>&emsp;Yuzi's Blog</span>
         </div>
         <transition name="slide">
-        <div class="items" v-show="menu_show">
+        <div class="items" v-show="menushow">
             
             <a href="/">
                 <div class="item">
@@ -125,8 +137,7 @@
 </nav>
                     </div>
                     <div id="main">
-                        
-<div class="article">
+                        <div class="article">
     <div>
         <h1>一个选择排序函数 </h1>
     </div>
@@ -146,7 +157,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/C/" style="color: #ffa2c4">
+                <a href="/tags/C/" style="color: #00bcd4">
                     C++
                 </a>
             </span>
@@ -154,6 +165,7 @@
         </span>
         
     </div>
+    
     <div class="content" v-pre>
         <p>Mark一下</p>
 <span id="more"></span>
@@ -199,17 +211,15 @@
     </div>
     
     
-    <!-- 样式文件 -->
-    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
-    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline-meta.css" />
+    
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/waline/2.9.1/waline.min.css" />
     <div id="comment">
-      <div id="waline-container">
-      </div>
+        <div id="waline-container"></div>
     </div>
     
 </div>
-                         
-<footer id="footer">
+                        <footer id="footer">
     <div class="footer-wrap">
         <div>
             © 2020 - 2022 Yuzi&#39;s Blog
@@ -219,44 +229,40 @@
             @Yuzi
         </div>
         <div></div>
-        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
-                target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> & <a target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
         
     </div>
 </footer>
                     </div>
                 </div>
             </transition>
-            <div id="img_show">
-                <img id="img_content" alt="img_show">
+            <div id="showimg">
+                <img id="showimg-content" alt="showimg">
             </div>
         </div>
         <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
-        <script src="/js/particlex.js"></script>
-        <script src="/js/showimg.js"></script>
-        
+<script src="/js/function.js"></script>
+<script src="/js/particlex.js"></script>
 
-    <script src="https://unpkg.com/@waline/client@v2/dist/waline.js"></script>
-    <script>
-        let locale = {}
-            
-                locale["placeholder"]="欢迎评论(填写邮箱可在被回复时收到邮件提醒)"
-                    
-            waline = Waline.init({
-                el: '#waline-container',
-                serverURL: "https://comments.yuzi0201.top",
-                commentCount: "true",
-                pageview: "false",
-                emoji: "https://unpkg.com/@waline/emojis@1.0.1/weibo,https://unpkg.com/@waline/emojis@1.0.1/alus,https://unpkg.com/@waline/emojis@1.0.1/bilibili,https://unpkg.com/@waline/emojis@1.0.1/qq,https://unpkg.com/@waline/emojis@1.0.1/tieba,https://unpkg.com/@waline/emojis@1.0.1/tw-emoji".split(','),
-                meta: "nick,mail,link".split(','),
-                requiredMeta: "nick".split(','),
-                lang: "zh-CN",
-                wordLimit: parseInt("0"),
-                pageSize: "10",
-                login: "enable",
-                locale
-            });
-    </script>
-    
+
+
+<script src="https://cdn.staticfile.org/waline/2.9.1/waline.min.js"></script>
+<script>
+    Waline.init({
+        el: '#waline-container',
+        serverURL: "https://comments.yuzi0201.top",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.0.1/weibo,https://unpkg.com/@waline/emojis@1.0.1/alus,https://unpkg.com/@waline/emojis@1.0.1/bilibili,https://unpkg.com/@waline/emojis@1.0.1/qq,https://unpkg.com/@waline/emojis@1.0.1/tieba,https://unpkg.com/@waline/emojis@1.0.1/tw-emoji".split(','),
+        meta: "nick,mail,link".split(','),
+        requiredMeta: "nick".split(','),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        locale: {"placeholder":"欢迎评论(填写邮箱可在被回复时收到邮件提醒)"}
+    });
+</script>
+
     </body>
 </html>

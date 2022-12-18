@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<html lang="zh_CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>WSL入坑记 | Yuzi&#39;s Blog</title>
+        <meta name="author" content="Yuzi">
+        <meta name="description" content="A blog which include my study and life">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/lxh.png">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.1/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.2.1/js/all.min.js"></script>
+        <script src="https://cdn.staticfile.org/vue/3.2.45/vue.global.prod.min.js"></script>
+        
+        <script src="https://polyfill.io/v3/polyfill.min.js?features="></script>
+        
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        
+        <canvas id="background"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+        <script src="/js/anime.js"></script>
+        <script src="/js/firework2.js"></script>
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:2147483647;justify-content:space-between;background:#fff;transition:all 0.3s ease-out;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none">
+    <div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center">
+        <div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center">
+            <div>
+                <h2>LOADING...</h2>
+                <p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p>
+                <div>
+                    <img alt="loading" src="/loading.gif">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="showpage" style="display: -not-none">
+                    <div id="menushow">
+                        <nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Yuzi's Blog</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;about</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;tags</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menushow" id="phone-menu">
+        <div class="curtain" @click="menushow = !menushow" v-show="menushow"></div>
+        <div class="title" @click="menushow = !menushow">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;Yuzi's Blog</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menushow">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        <div class="article">
+    <div>
+        <h1>WSL入坑记 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/24
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/linux/" style="color: #00bcd4">
+                    linux
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>起因是最终还是受不了Linux生态过于薄弱，又不想用ms-Windows做开发，遂想到了这个，然后开始尝试，还是踩了不少坑，总结如下：</p>
+<span id="more"></span>
+
+
+<hr>
+<p>首先，我选择的Arch发行版，因为我之前一直用的manjaro，然鹅manjaro的wsl貌似很久没维护了，所以我就干脆使用Arch了。<br>仓库地址：<a target="_blank" rel="noopener" href="https://github.com/yuk7/ArchWSL">https://github.com/yuk7/ArchWSL</a> ，我使用的是安装方法1。wsl版本是wsl2。</p>
+<h2 id="关于Error-0x80370102"><a href="#关于Error-0x80370102" class="headerlink" title="关于Error 0x80370102"></a>关于Error 0x80370102</h2><p>开始安装，首先要安装以下三条：</p>
+<p><img src="https://pic4.zhimg.com/v2-d65f6b7c8761b9091c5ea8b596e2447b_r.jpg"></p>
+<p>或者也可以在powershell里开启：</p>
+<pre><code class="PowerShell">Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+</code></pre>
+<p>然而即使这样做了，启动时仍然报错80370102，搜遍全网，最后在知乎<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/147233604">这里</a>找到了答案，就是在上述做完后，再键入一条：</p>
+<pre><code class="PowerShell">bcdedit /set hypervisorlaunchtype auto
+</code></pre>
+<p>就没问题了。</p>
+<h2 id="代理配置"><a href="#代理配置" class="headerlink" title="代理配置"></a>代理配置</h2><p>因为在wsl中，随着宿主机的重启，wsl和宿主机的IP全都会变，这就会造成很大的麻烦，还好wsl里有文件能自动更新IP，于是设置代理如下：</p>
+<p>在<code>/etc/profile</code>[&#x2F;&#x2F;]: # (这里配置的环境变量全局可见，永久有效)中添加以下语句：</p>
+<pre><code class="Bash">host_ip=$(cat /etc/resolv.conf |grep &quot;nameserver&quot; |cut -f 2 -d &quot; &quot;)
+export ALL_PROXY=&quot;http://$host_ip:20170&quot;
+export all_proxy=&quot;http://$host_ip:20170&quot;
+</code></pre>
+<p>端口根据宿主机配置的来，我Windows为此换成了clash，也为的是它能智能的分流，clash中要把“allow lan”打开。此时全局都可以走代理了，而对于chrome这类不走all_proxy的，可以在其启动参数后增加<code>--proxy-server=$all_proxy</code>来走代理。</p>
+<h2 id="GUI"><a href="#GUI" class="headerlink" title="GUI"></a>GUI</h2><p>微软搞了个wslg，可以很方便地运行GUI程序，甚至还给wsl搞了显卡驱动，但很可惜，我折腾了半天，显卡是没有驱动上的。</p>
+<p>首先将wsl更新到最新版本，然后把显卡驱动也更新到最新。然后安一堆诸如xorg，ffmpeg，libGL等等一堆库后，就神奇的跑起来了，开始菜单也能看到Linux程序了。</p>
+<h3 id="高分屏缩放"><a href="#高分屏缩放" class="headerlink" title="高分屏缩放"></a>高分屏缩放</h3><p>不绕弯了，放上最干货的回答：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/424930447">https://zhuanlan.zhihu.com/p/424930447</a></p>
+<blockquote>
+<p>小声bb：为什么最后找到的解决方案都是知乎上的🥲「悲」</p>
+</blockquote>
+<p>在家目录下新建文件：<code>~/.Xresource</code>，然后输入：</p>
+<pre><code class="Bash">Xft.dpi: 175
+</code></pre>
+<p>上面填入缩放大小，175%就填175，保存退出。然后在<code>/etc/profile</code>后追加：</p>
+<pre><code class="Bash">xrdb -merge ~/.Xresource
+</code></pre>
+<p>就大功告成了！这里是相当于直接调整了X11的缩放，是最完全的！</p>
+<h2 id="指纹sudo"><a href="#指纹sudo" class="headerlink" title="指纹sudo"></a>指纹sudo</h2><p>在Windows下最大的好处是可以使用指纹来验证sudo，不用每次都输密码了，这绝对是一个巨大优势</p>
+<p>仓库地址：<a target="_blank" rel="noopener" href="https://github.com/nullpo-head/WSL-Hello-sudo">https://github.com/nullpo-head/WSL-Hello-sudo</a></p>
+<p>按照教程一步步来，其实很简单。最后因为我的不是Ubuntu，需要手动添加，需在<code>/etc/pam.d/sudo</code>首部追加：</p>
+<pre><code class="Bash">auth sufficient pam_wsl_hello.so
+</code></pre>
+<p>即可。</p>
+<h2 id="网络转发"><a href="#网络转发" class="headerlink" title="网络转发"></a>网络转发</h2><p>由于wsl2是基于hyperV的，就是一个虚拟机，所以网络肯定是和主机隔开的，我们查看网卡也可以发现多了一块wsl的虚拟网卡，那么问题来了，假如在wsl里serve，外部怎么访问到呢？微软已经贴心的做了转发，本机访问<code>localhost:端口</code>会自动访问到wsl的serve，但是如果想要局域网访问，那还得费一番功夫，因为每次IP都会变，网上貌似有自动脚本，但是考虑到要向局域网暴露的时候不多（顶多传个文件），直接放在.bat里执行就行，内容如下：（都要以管理员运行）</p>
+<p>打开转发：</p>
+<pre><code class="Batch">netsh interface portproxy add v4tov4 listenport=要暴露的端口 connectaddress=wsl的IP地址 connectport=wsl的端口 listenaddress=* protocol=tcp
+</code></pre>
+<p>另外，需要关闭防火墙，局域网才能访问！</p>
+<hr>
+<p>关闭转发：（注意，上述打开转发执行后，会一直开着，重启也会继续，所以最好用完就关闭）</p>
+<pre><code class="Batch">netsh interface portproxy delete v4tov4 listenport=要关闭的已暴露端口 protocol=tcp
+</code></pre>
+<h2 id="Systemd与Docker"><a href="#Systemd与Docker" class="headerlink" title="Systemd与Docker"></a>Systemd与Docker</h2><p>wsl2一直不支持systemd，这导致诸如docker守护进程就无法启动，然而在我安装的前两天，Win11的22H2更新带来了systemd的支持：<a target="_blank" rel="noopener" href="https://github.com/microsoft/WSL/releases/tag/0.67.6">https://github.com/microsoft/WSL/releases/tag/0.67.6</a> ，<a target="_blank" rel="noopener" href="https://aka.ms/wslsystemd">https://aka.ms/wslsystemd</a></p>
+<p>打开方法：更新后配置<code>/etc/wsl.conf</code>，在其后追加：</p>
+<pre><code class="Bash">[boot]
+systemd=true
+</code></pre>
+<p>然后<code>wsl.exe --shutdown</code>一波，差不多应该就可以了。我尝逝了一下，结果docker是好了，wslg炸了。wslg的issue里也有多人反馈，哎……看来还是不要追新。不得已，把上述配置删掉，wslg立刻就恢复了，幸好。评论区以及有人提出，相信过几天就应该能修好（毕竟是pre-release）</p>
+<p>不使用systemd的情况下，要使用docker就只能每次开个终端手动执行<code>sudo dockerd</code>啰。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>折腾了这么两天，中途都有点怀疑这样做的意义，也一直在比较wsl和纯Linux的异同。最后还是决定入wsl弃实机Linux，首先是Windows装wsl比Linux装Windows虚拟机绝对是要强的多的。其次Windows的软件生态是不可忽视的一环，比如MIUI+之类的。另外，wsl备份挺方便的，一键备份无忧。wsl的两个系统文件互通做得很不错。</p>
+<p>另外今早我进行了Windows的续航测试，不插电轻度使用从早上9点用到中午12点半共3个半小时掉了60%的电，这基本上是两个大节的时间，这样是完全能接受的，所以说也没有什么理由不使用win+wsl了。唯一的不足可能是Windows的minecraft的帧率为何低于Linux呢？可以留着Linux环境玩MC Java版用。</p>
+<hr>
+<p>后续更新：10月就弃了WSL了，Linux实体机还是性能更高，更适合当开发系统。Windows还是留着当游戏启动器罢！「悲」</p>
+
+    </div>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/waline/2.9.1/waline.min.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+</div>
+                        <footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2020 - 2022 Yuzi&#39;s Blog
+            <span class="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            @Yuzi
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> & <a target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="showimg">
+                <img id="showimg-content" alt="showimg">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="/js/function.js"></script>
+<script src="/js/particlex.js"></script>
+
+
+
+<script src="https://cdn.staticfile.org/waline/2.9.1/waline.min.js"></script>
+<script>
+    Waline.init({
+        el: '#waline-container',
+        serverURL: "https://comments.yuzi0201.top",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.0.1/weibo,https://unpkg.com/@waline/emojis@1.0.1/alus,https://unpkg.com/@waline/emojis@1.0.1/bilibili,https://unpkg.com/@waline/emojis@1.0.1/qq,https://unpkg.com/@waline/emojis@1.0.1/tieba,https://unpkg.com/@waline/emojis@1.0.1/tw-emoji".split(','),
+        meta: "nick,mail,link".split(','),
+        requiredMeta: "nick".split(','),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        locale: {"placeholder":"欢迎评论(填写邮箱可在被回复时收到邮件提醒)"}
+    });
+</script>
+
+    </body>
+</html>
