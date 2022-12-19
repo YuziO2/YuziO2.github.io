@@ -17,8 +17,8 @@ https://blog.yuzi0201.top/tags/index.html
 https://blog.yuzi0201.top/categories/index.html
 https://blog.yuzi0201.top/
 https://blog.yuzi0201.top/tags/AI/
+https://blog.yuzi0201.top/tags/hexo/
 https://blog.yuzi0201.top/tags/linux/
 https://blog.yuzi0201.top/tags/nodejs/
 https://blog.yuzi0201.top/tags/C/
-https://blog.yuzi0201.top/tags/hexo/
 https://blog.yuzi0201.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/
