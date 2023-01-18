@@ -157,7 +157,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/hexo/" style="color: #ffa2c4">
+                <a href="/tags/hexo/" style="color: #ff7d73">
                     hexo
                 </a>
             </span>
@@ -176,11 +176,11 @@
 <li><a href="#%E5%89%8D%E7%AB%AF%E5%BC%95%E5%85%A5">前端引入</a></li>
 </ol>
 <h1 id="为什么弃用Gitalk"><a href="#为什么弃用Gitalk" class="headerlink" title="为什么弃用Gitalk?"></a>为什么弃用Gitalk?</h1><p>昨天，我使用ParticleX自带的Gitalk弄好了评论区系统，能用，但是当我邀请舍友来参与评论时，一名舍友发出了质疑：这个评论索要的权限也太高了吧！</p>
-<p><img src="http://static.yuzi0201.top/picture/bcb4ff00/image_AgNA1mpbUW.png"></p>
+<p><img src="http://static.yuzi.dev/picture/bcb4ff00/image_AgNA1mpbUW.png"></p>
 <p>仔细一看，居然要<strong>读写所有公开仓库</strong>的权限，看着实在是太吓人了，为什么会这样？</p>
 <p>在我仔细搜索一番后，发现v2ex论坛早已有相关<a target="_blank" rel="noopener" href="https://www.v2ex.com/t/535608" title="讨论">讨论</a>，因为他的实现原理是使用一个repo的issue来存储评论区，那要发评论就是操作你的账号往该仓库的issue里发东西，而由于GitHub Oauth的权限粒度的问题，要想实现上述功能，就必须要这么高的权限。而这个权限的token貌似就存在localstorage中，博主只需稍微在网页上写一点Ajax，就能拿到评论者的GitHub所有仓库的读写权限！</p>
 <p>不光如此，使用gitalk，该Oauth的clientID和secret都会被直接暴露在前端！对于博主来说也是很危险的行为：</p>
-<p><img src="http://static.yuzi0201.top/picture/bcb4ff00/image_sBqWvxf2Y_.png"></p>
+<p><img src="http://static.yuzi.dev/picture/bcb4ff00/image_sBqWvxf2Y_.png"></p>
 <p>所以，我必须寻找一个合适的评论系统，规避以上问题，经过我的一番搜寻，Waline便成为我选择的对象，它的优点有：</p>
 <ul>
 <li><p>不会暴露评论者和博主的隐私</p>
@@ -198,11 +198,11 @@
 <p>创建好后，就可以配置数据库了。</p>
 <h1 id="使用SupaBase做数据库"><a href="#使用SupaBase做数据库" class="headerlink" title="使用SupaBase做数据库"></a>使用SupaBase做数据库</h1><p>这个东西是一个“BaaS”的东西，叫后端即服务，是昨天舍友推荐给我的，没想到今天就用上了，官网也有对应部署<a target="_blank" rel="noopener" href="https://waline.js.org/guide/server/databases.html#postgresql" title="教程">教程</a>。</p>
 <p>注册好后，将官方提供的<a target="_blank" rel="noopener" href="https://github.com/walinejs/waline/blob/main/assets/waline.pgsql" title="创建表的SQL">创建表的SQL</a>直接扔进SQL Editor中，运行，Over！</p>
-<p><img src="http://static.yuzi0201.top/picture/bcb4ff00/image_MXQ1IKAJWf.png"></p>
+<p><img src="http://static.yuzi.dev/picture/bcb4ff00/image_MXQ1IKAJWf.png"></p>
 <p>创建好后，就把连接数据库的字段放进Vercel的环境变量中，其值在Supabase的“Settings→Database”页面往下划：</p>
-<p><img src="http://static.yuzi0201.top/picture/bcb4ff00/image_URhlkUX3OQ.png"></p>
+<p><img src="http://static.yuzi.dev/picture/bcb4ff00/image_URhlkUX3OQ.png"></p>
 <p>然后就去Vercel的“Settings→Environment Variables”里增加环境变量，对照文档里的添加就行了：</p>
-<p><img src="http://static.yuzi0201.top/picture/bcb4ff00/image_j3ISQpPOLZ.png"></p>
+<p><img src="http://static.yuzi.dev/picture/bcb4ff00/image_j3ISQpPOLZ.png"></p>
 <p>密码是你刚刚创建项目时候输入的，如果忘了可以在下面重置。</p>
 <hr>
 <p>当然，这个评论系统还有诸多实用功能，如 使用邮箱进行提醒 等，可参照官网文档进行设置</p>
