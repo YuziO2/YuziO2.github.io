@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html lang="zh_CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>小米路由器AC2100刷入OpenWrt | Yuzi&#39;s Blog</title>
+        <meta name="author" content="Yuzi">
+        <meta name="description" content="A blog which include my study and life">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/lxh.png">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.1/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.2.1/js/all.min.js"></script>
+        <script src="https://cdn.staticfile.org/vue/3.2.45/vue.global.prod.min.js"></script>
+        
+        <script src="https://polyfill.io/v3/polyfill.min.js?features="></script>
+        
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        
+        <canvas id="background"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+        <script src="/js/anime.js"></script>
+        <script src="/js/firework2.js"></script>
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:2147483647;justify-content:space-between;background:#fff;transition:all 0.3s ease-out;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none">
+    <div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center">
+        <div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center">
+            <div>
+                <h2>LOADING...</h2>
+                <p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p>
+                <div>
+                    <img alt="loading" src="/loading.gif">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="showpage" style="display: -not-none">
+                    <div id="menushow">
+                        <nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Yuzi's Blog</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;about</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;tags</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menushow" id="phone-menu">
+        <div class="curtain" @click="menushow = !menushow" v-show="menushow"></div>
+        <div class="title" @click="menushow = !menushow">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;Yuzi's Blog</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menushow">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        <div class="article">
+    <div>
+        <h1>小米路由器AC2100刷入OpenWrt </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/1/18
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/OpenWrt/" style="color: #00a596">
+                    OpenWrt
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>今天闲来无事，终于在家里的小米路由器上刷入了OpenWRT，遂记录一下过程。</p>
+<span id="more"></span>
+
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E5%88%B7%E5%89%8D%E5%87%86%E5%A4%87">刷前准备</a></li>
+<li><a href="#%E4%B8%8B%E8%BD%BD%E5%B0%8F%E7%B1%B3%E6%BC%8F%E6%B4%9E%E5%8C%85%E5%88%B7%E5%85%A5breed">下载小米漏洞包，刷入breed</a></li>
+<li><a href="#%E5%9C%A8breed%E5%88%B7%E5%85%A5openwrt-kernel-%E5%BA%95%E5%8C%85">在breed刷入OPENWRT KERNEL 底包</a></li>
+<li><a href="#%E5%88%B7%E5%85%A5openwrt-%E6%AD%A3%E5%BC%8F%E5%9B%BA%E4%BB%B6">刷入OPENWRT 正式固件</a></li>
+<li><a href="#%E5%90%8E%E7%BB%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C">后续的一些操作</a><ol>
+<li><a href="#%E5%86%85%E7%BD%91%E4%B8%BB%E6%9C%BA%E4%B8%8D%E5%8F%AF%E8%BE%BE%E9%97%AE%E9%A2%98">内网主机不可达问题</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E8%AF%81%E4%B9%A6%E5%8F%AF%E9%80%89">安装证书（可选）</a><ol>
+<li><a href="#%E5%AE%89%E8%A3%85acmesh">安装acme.sh</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E8%AF%81%E4%B9%A6%E5%B9%B6%E9%87%8D%E5%90%AFuhttpd">安装证书并重启uhttpd</a></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>Openwrt是什么想必无需多言，有了它我们可以更好的玩转路由器。</p>
+<p>参考教程：<a target="_blank" rel="noopener" href="https://supes.top/%E7%BA%A2%E7%B1%B3-%E5%B0%8F%E7%B1%B3-ac2100-%E5%88%B7breed%E5%92%8Copenwrt%E6%95%99%E7%A8%8B/" title="https://supes.top/红米-小米-ac2100-刷breed和openwrt教程/">https://supes.top/红米-小米-ac2100-刷breed和openwrt教程/</a></p>
+<h1 id="刷前准备"><a href="#刷前准备" class="headerlink" title="刷前准备"></a>刷前准备</h1><p>如果你有一台带网口的电脑和一根网线，那使用网线将电脑和路由器连接即可。</p>
+<p>如果你的电脑没有网口，或者你没有网线，那可以使用双路由器方案。相信很多人家里都是：互联网-光猫-路由器-终端 的配置。而现在光猫很多都有路由器功能。我们可以把光猫的WIFI开关打开，以实现登录breed的功能。</p>
+<h1 id="下载小米漏洞包，刷入breed"><a href="#下载小米漏洞包，刷入breed" class="headerlink" title="下载小米漏洞包，刷入breed"></a>下载小米漏洞包，刷入breed</h1><p>教程参考地址：<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-4066963-1-1.html" title="https://www.right.com.cn/forum/thread-4066963-1-1.html">https://www.right.com.cn/forum/thread-4066963-1-1.html</a></p>
+<p>其实看上面的教程就能看懂，我在此简单说说。</p>
+<p>先下载有漏洞的固件：<a target="_blank" rel="noopener" href="http://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/r2100/miwifi_r2100_firmware_4b519_2.0.722.bin" title="http://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/r2100/miwifi_r2100_firmware_4b519_2.0.722.bin">http://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/r2100/miwifi_r2100_firmware_4b519_2.0.722.bin</a></p>
+<p>下载完成后进入后台 192.168.31.1-&gt;<strong>常用设置</strong>-&gt;<strong>系统状态</strong>-&gt;手动升级 &amp;#x20;</p>
+<p>加载固件，可以保留数据 <strong>-&gt;</strong> 开始升级</p>
+<hr>
+<p>进入后台192.168.31.1，复制自己的stok，将stok替换下面的CCCC：</p>
+<pre><code class="text">http://192.168.31.1/cgi-bin/luci/;stok=CCCCCCCCCCC/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=%0A%5B%20-z%20%22%24(dmesg%20%7C%20grep%20ESMT)%22%20%5D%20%26%26%20B%3D%22Toshiba%22%20%7C%7C%20B%3D%22ESMT%22%0Auci%20set%20wireless.%24(uci%20show%20wireless%20%7C%20awk%20-F%20&#39;.&#39;%20&#39;%2Fwl1%2F%20%7Bprint%20%242%7D&#39;).ssid%3D%22%24B%20%24(dmesg%20%7C%20awk%20&#39;%2FBad%2F%20%7Bprint%20%245%7D&#39;)%22%0A%2Fetc%2Finit.d%2Fnetwork%20restart%0A
+</code></pre>
+<p>此代码是用来检查NAND坏块的。路由器开机超过一小时建议先重启。运行代码后，你路由器的2.4g WiFi名称会改名成：比如  “ESMT”，”Toshiba”，”Toshiba 90 768”。 90和768是坏块。 如果ESMT或者Toshiba后面没数字，那恭喜你，没有坏块！！！</p>
+<hr>
+<pre><code class="纯文本">http://192.168.31.1/cgi-bin/luci/;stok=CCCCCCCCCCC/api/misystem/set_config_iotdev?bssid=Xiaomi&amp;user_id=longdike&amp;ssid=%0Acd%20%2Ftmp%0Acurl%20-o%20B%20-O%20https%3A%2F%2Fbreed.hackpascal.net%2Fr1286%2520%255b2020-10-09%255d%2Fbreed-mt7621-xiaomi-r3g.bin%20-k%20-g%0A%5B%20-z%20%22%24(sha256sum%20B%20%7C%20grep%20242d42eb5f5aaa67ddc9c1baf1acdf58d289e3f792adfdd77b589b9dc71eff85)%22%20%5D%20%7C%7C%20mtd%20-r%20write%20B%20Bootloader%0A
+</code></pre>
+<p>此代码是用来刷BREED的。<strong>如果路由器在60秒内重启则代表刷BREED成功</strong>(灯会从<strong>蓝</strong>变<strong>橘</strong>，最终变<strong>蓝</strong>进入系统)<strong>。</strong></p>
+<p>如果没重启，可能是stok过期了。进入后台复制新的stok即可。也有可能下载的BREED损坏，从新运行代码。也有可能没网络。</p>
+<p><strong>成功后拔掉电源，按住reset同时接上电源等10秒即可进入breed。需要注意的是如果闪蓝灯那就是BREED。如果是闪橘灯那就是原厂UBOOT。</strong></p>
+<blockquote>
+<p>⚠️如果是没有用网线连接路由器的话，breed是不会有无线连接的，这时候就需要另一台路由器（比如光猫）了。<br>教程地址：<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-1146483-1-1.html" title="https://www.right.com.cn/forum/thread-1146483-1-1.html">https://www.right.com.cn/forum/thread-1146483-1-1.html</a>简单来说，先将路由器wan口的先拔出，插在lan口上，然后，因为天翼网关默认是192.168.1.1，而breed也是192.168.1.1，会冲突，所以要进天翼网关更改网段，我改成了192.168.0. *。改了后，在电脑控制面板更改电脑IP地址为手动获取，然后填入IP：192.168.1.2，掩码：255.255.255.0，网关192.168.1.1。之后访问192.168.1.1即可进入breed控制界面。</p>
+</blockquote>
+<p><strong>最后用进入浏览器，最好是隐身模式，输入192.168.1.1  进入breed管理界面</strong></p>
+<p><strong>刷完后可能无法进入原厂系统，进BREED删变量：normal_firmware_md5</strong></p>
+<h1 id="在breed刷入OPENWRT-KERNEL-底包"><a href="#在breed刷入OPENWRT-KERNEL-底包" class="headerlink" title="在breed刷入OPENWRT KERNEL 底包"></a>在breed刷入OPENWRT KERNEL 底包</h1><p>跟着文章顶部的教程走，点击 环境变量编辑 点 添加, 字段 输入 xiaomi.r3g.bootfw  值 输入 2 , 点击 保存</p>
+<p><img src="https://supes.top/wp-content/uploads/2022/05/Snipaste_2022-05-13_20-42-11.png"></p>
+<p>然后刷入底包：</p>
+<p><img src="https://supes.top/wp-content/uploads/2022/05/2-1.png"></p>
+<p>底包下载地址：<a href="https://supes.top/?version=22.03&target=ramips/mt7621&id=xiaomi_redmi-router-ac2100" title="https://supes.top/?version=22.03&amp;target=ramips%2Fmt7621&amp;id=xiaomi_redmi-router-ac2100">https://supes.top/?version=22.03&amp;target&#x3D;ramips%2Fmt7621&amp;id&#x3D;xiaomi_redmi-router-ac2100</a> （可能会有变化，可以在网址里找找），第一个是升级包，第二个才是底包。</p>
+<h1 id="刷入OPENWRT-正式固件"><a href="#刷入OPENWRT-正式固件" class="headerlink" title="刷入OPENWRT 正式固件"></a>刷入OPENWRT 正式固件</h1><p>路由器会自动重启, 等蓝灯常亮后 浏览器 输入 <a target="_blank" rel="noopener" href="http://10.0.0.1/cgi-bin/luci" title="10.0.0.1">10.0.0.1</a> 进入OpenWrt底包后台，如果是无线，此时openwrt已经自动有了WiFi，可以断开和另外一台路由器的连接转而连接AC2100了。默认密码为root。</p>
+<p><img src="https://supes.top/wp-content/uploads/2022/05/8.png"></p>
+<p>选择好升级包后，选择不保留配置，刷入，等待路由器自动重启完成,蓝灯常亮后,会自动跳转到后台登录界面, 或手动输入后台地址  <a target="_blank" rel="noopener" href="http://10.0.0.1/cgi-bin/luci" title="10.0.0.1">10.0.0.1</a></p>
+<p>登录后台, 默认密码 root，进入后会有引导，一般只需要修改WiFi名和密码。</p>
+<p><strong>之后一定要去系统→管理权 中修改root密码！！！！</strong></p>
+<h1 id="后续的一些操作"><a href="#后续的一些操作" class="headerlink" title="后续的一些操作"></a>后续的一些操作</h1><h2 id="内网主机不可达问题"><a href="#内网主机不可达问题" class="headerlink" title="内网主机不可达问题"></a>内网主机不可达问题</h2><p>奇怪的问题：内网主机不可达，ping显示没有路径，我想难道是没有路由表？所以我在网络→路由→静态ipv4路由里加了一条，重启后就恢复正常了！</p>
+<p><img src="https://static.yuzi0201.top/picture/16c911c1/Screenshot_20230118_214747.png"></p>
+<h2 id="安装证书（可选）"><a href="#安装证书（可选）" class="headerlink" title="安装证书（可选）"></a>安装证书（可选）</h2><p>因为家里有公网IP，所以我将openwrt面板映射到了外部，安全起见，开启HTTPS证书。</p>
+<p>因为OW使用的uhttpd，我的域名在cloudflare上，所以以此为例。</p>
+<p>进入ssh，在系统→管理权处开启</p>
+<h3 id="安装acme-sh"><a href="#安装acme-sh" class="headerlink" title="安装acme.sh"></a>安装acme.sh</h3><pre><code class="bash">curl  https://get.acme.sh | sh
+</code></pre>
+<p>安装好后，<code>cd /root/.acme.sh</code>进入目录，</p>
+<pre><code class="bash">export CF_Key=&quot;cloudflare中查看你的APIkey&quot;
+export CF_Email=&quot;你的邮箱&quot;
+./acme.sh  --issue  --dns dns_cf -d 你的域名
+</code></pre>
+<p>可能会执行失败，按照提示对邮箱进行注册即可。</p>
+<h3 id="安装证书并重启uhttpd"><a href="#安装证书并重启uhttpd" class="headerlink" title="安装证书并重启uhttpd"></a>安装证书并重启uhttpd</h3><p>在申请好证书后，还需要把证书安装到指定的位置：</p>
+<pre><code class="bash">./acme.sh --installcert -d 你的域名 --keypath /etc/uhttpd.key  --fullchainpath /etc/uhttpd.crt --reloadcmd &quot;/etc/init.d/uhttpd restart&quot;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline-meta.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+</div>
+                        <footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2020 - 2023 Yuzi&#39;s Blog
+            <span class="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            @Yuzi
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> & <a target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="showimg">
+                <img id="showimg-content" alt="showimg">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="/js/function.js"></script>
+<script src="/js/particlex.js"></script>
+
+
+
+<script src="https://unpkg.com/@waline/client@v2/dist/waline.js"></script>
+<script>
+    Waline.init({
+        el: '#waline-container',
+        serverURL: "https://comments.yuzi0201.top",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.0.1/weibo,https://unpkg.com/@waline/emojis@1.0.1/alus,https://unpkg.com/@waline/emojis@1.0.1/bilibili,https://unpkg.com/@waline/emojis@1.0.1/qq,https://unpkg.com/@waline/emojis@1.0.1/tieba,https://unpkg.com/@waline/emojis@1.0.1/tw-emoji".split(','),
+        meta: "nick,mail,link".split(','),
+        requiredMeta: "nick".split(','),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        locale: {"placeholder":"欢迎评论(填写邮箱可在被回复时收到邮件提醒)"}
+    });
+</script>
+
+    </body>
+</html>

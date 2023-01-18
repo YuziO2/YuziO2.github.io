@@ -1,3 +1,4 @@
+https://blog.yuzi0201.top/posts/16c911c1.html
 https://blog.yuzi0201.top/posts/1ef2d696.html
 https://blog.yuzi0201.top/posts/49f7102e.html
 https://blog.yuzi0201.top/about/index.html
@@ -22,3 +23,4 @@ https://blog.yuzi0201.top/tags/linux/
 https://blog.yuzi0201.top/tags/nodejs/
 https://blog.yuzi0201.top/tags/C/
 https://blog.yuzi0201.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/
+https://blog.yuzi0201.top/tags/OpenWrt/
