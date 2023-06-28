@@ -3,7 +3,7 @@
 <html lang="zh_CN">
     <head>
         <meta charset="utf-8" />
-        <title>Tags: 数据结构 | Yuzi&#39;s Blog</title>
+        <title>使用mkcert进行本地自签证书 | Yuzi&#39;s Blog</title>
         <meta name="author" content="Yuzi" />
         <meta name="description" content="A blog which include my study and life" />
         <meta name="keywords" content="" />
@@ -28,6 +28,14 @@
 
 <script src="/js/lib/preview.js"></script>
 
+
+
+
+
+
+<script src="https://cdn.staticfile.org/waline/2.14.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/waline/2.14.8/waline.min.css" />
+<link rel="stylesheet" href="https://cdn.staticfile.org/waline/2.14.8/waline-meta.min.css" />
 
 
 
@@ -142,127 +150,87 @@
 
             <transition name="into">
                 <div id="main" v-show="!loading">
-                    <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        <span>
-            <a href="/tags/AI/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                AI
-            </a>
+                    <div class="article">
+    <div>
+        <h1>使用mkcert进行本地自签证书</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/6/28
         </span>
         
         
-        
-        <span>
-            <a href="/tags/linux/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                linux
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%89%8D%E7%AB%AF/" style="color: #ff7d73">前端</a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/hexo/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                hexo
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/nodejs/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                nodejs
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/C/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                C++
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/OpenWrt/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                OpenWrt
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                数据结构
-            </a>
-        </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/tags/%E5%89%8D%E7%AB%AF/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                前端
-            </a>
-        </span>
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2021/10/26</div>
-            <a href="/posts/bb31fc73.html">
-                <h3>链队的应用：连续区间求最小</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="color: #ffa2c4">数据结构</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <p>在本地开发时，常常会有非https的“不安全”的提示，去获得权威CA的证书又不现实。但借助mkcert，可以方便的自签证书。</p>
+<span id="more"></span>
+
+<p>首先，上地址：<a target="_blank" rel="noopener" href="https://github.com/FiloSottile/mkcert">https://github.com/FiloSottile/mkcert</a></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>按照介绍进行安装，我在Windows下使用scoop进行安装：</p>
+<pre><code class="powershell">scoop bucket add extras
+scoop install mkcert
+</code></pre>
+<p>其它系统或包管理器可参照介绍页的提示。</p>
+<h1 id="信任CA证书"><a href="#信任CA证书" class="headerlink" title="信任CA证书"></a>信任CA证书</h1><h2 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h2><p>mkcert可以一键将CA证书装在本机上并信任。</p>
+<pre><code class="powershell">$ mkcert -install
+Created a new local CA 💥
+The local CA is now installed in the system trust store! ⚡️
+The local CA is now installed in the Firefox trust store (requires browser restart)! 🦊
+</code></pre>
+<h2 id="他人"><a href="#他人" class="headerlink" title="他人"></a>他人</h2><p>要让他人信任你的CA，可以把公钥发给他人，查看路径：</p>
+<pre><code class="powershell">$ mkcert -CAROOT
+</code></pre>
+<p>一般是在<code>~\AppData\Local\mkcert</code>里，把<code>rootCA.pem</code>发给别人即可（千万不要把key私钥发出去了哦！！）</p>
+<h1 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h1><p>在一个文件夹内，输入<code>mkcert your.website.com</code>「自行替换成你需要的地址，如localhost」，然后即可在你的文件夹里得到证书<code>your.website.com.pem</code>和密钥<code>your.website.com-key.pem</code>。</p>
+<h1 id="搭建反代服务器"><a href="#搭建反代服务器" class="headerlink" title="搭建反代服务器"></a>搭建反代服务器</h1><p>以nginx为例，下载好nginx，把两个文件拖入.<code>/conf</code>中，然后配置nginx.conf,以下是最简单的反代配置：</p>
+<pre><code class="nginx">    server &#123;
+       listen       1145 ssl; #端口
+       server_name  localhost;
+
+       ssl_certificate      your.website.com.pem; #你的证书文件名
+       ssl_certificate_key  your.website.com-key.pem; #你的密钥文件名
+
+       ssl_session_cache    shared:SSL:1m;
+       ssl_session_timeout  5m;
+
+       ssl_ciphers  HIGH:!aNULL:!MD5;
+       ssl_prefer_server_ciphers  on;
+
+       location / &#123;
+            proxy_pass http://127.0.0.1:8080; #要反代的地址
+       &#125;
+    &#125;
+</code></pre>
+<p>可以配置多个server，分别监听前端和后端。「可选」</p>
+<p>如果没有问题的话，加上https就可以看到锁了。<br>图中效果是配合修改系统hosts达成的：<br><img src="/"></p>
+
     </div>
+    
+    
+    
+    
+    
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
     
 </div>
 
@@ -295,6 +263,31 @@
             
         </div>
         <script src="/js/main.js"></script>
+        
+        
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://comments.yuzi.dev",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+        locale: {"placeholder":"欢迎评论(填写邮箱可在被回复时收到邮件提醒)"},
+        
+    });
+</script>
+
+
+
         
     </body>
 </html>

@@ -1,3 +1,4 @@
+https://blog.yuzi.dev/posts/1b7e545d.html
 https://blog.yuzi.dev/about/index.html
 https://blog.yuzi.dev/posts/49f7102e.html
 https://blog.yuzi.dev/posts/bcb4ff00.html
@@ -24,3 +25,4 @@ https://blog.yuzi.dev/tags/nodejs/
 https://blog.yuzi.dev/tags/C/
 https://blog.yuzi.dev/tags/OpenWrt/
 https://blog.yuzi.dev/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/
+https://blog.yuzi.dev/tags/%E5%89%8D%E7%AB%AF/
