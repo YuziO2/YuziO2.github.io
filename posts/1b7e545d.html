@@ -42,6 +42,8 @@
 
 <link rel="stylesheet" href="/css/main.css" />
 
+    <script src="/js/lib/toc.js"></script>
+
     <meta name="generator" content="Hexo 6.3.0"></head>
     <body>
         <div id="background"></div>
@@ -170,14 +172,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%89%8D%E7%AB%AF/" style="color: #00bcd4">前端</a>
+                <a href="/tags/%E5%89%8D%E7%AB%AF/" style="color: #ffa2c4">前端</a>
             </span>
             
         </span>
         
     </div>
     
-    <div class="content" v-pre>
+    <toc-component></toc-component>
+    <div class="content" v-pre id="main-content">
         <p>在本地开发时，常常会有非https的“不安全”的提示，去获得权威CA的证书又不现实。但借助mkcert，可以方便的自签证书。</p>
 <span id="more"></span>
 
