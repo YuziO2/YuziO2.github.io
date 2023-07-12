@@ -1040,3 +1040,10 @@ ol li {
 .toc-level-5>a {
     margin-left: 3rem;
 }
+
+.pic-caption{
+    top:-10px;
+    text-align: center;
+    font-size: small;
+    color: grey;
+}

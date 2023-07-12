@@ -144,8 +144,8 @@
     <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
 </transition>
 
-            <transition name="into">
-                <div id="main" v-show="!loading">
+            <!-- <transition name="into"> -->
+                <div id="main" class="into-enter-from">
                     <div id="home-head">
     <div id="home-background" ref="homeBackground" data-images="https://s1.ax1x.com/2023/06/27/pCaIH29.jpg,https://s1.ax1x.com/2023/06/28/pCdGRhj.jpg,https://s1.ax1x.com/2023/06/28/pCdG2NQ.jpg,https://s1.ax1x.com/2023/06/28/pCdGgAg.jpg,https://s1.ax1x.com/2023/06/28/pCdG6HS.jpg,https://s1.ax1x.com/2023/06/28/pCddXd0.jpg,https://s1.ax1x.com/2023/06/29/pCwU9js.jpg,https://s1.ax1x.com/2023/06/29/pCwUpcj.jpg"></div>
     <div id="home-info" @click="homeClick">
@@ -165,6 +165,49 @@
 <div id="home-posts-wrap" true ref="homePostsWrap">
     <div id="home-posts">
         
+
+<div class="post">
+    <a href="/posts/2a89736b.html">
+        <h2 class="post-title">第一次香港之行</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/7/7
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p>6月30日这天，周五，我和<a target="_blank" rel="noopener" href="https://situ2001.com/">situ2001</a>一起利用考完试这个周末来了一次香港之旅，也算是我期待已久的第一次出境旅行吧。游完后感触颇深，遂在这个无事可做的下午在工位上整理出我的游记。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%97%85%E8%A1%8C/" style="color: #00bcd4">旅行</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/%E9%A6%99%E6%B8%AF/" style="color: #ff7d73">香港</a>
+        </span>
+        
+    </div>
+    <a href="/posts/2a89736b.html" class="go-post">阅读全文</a>
+</div>
 
 <div class="post">
     <a href="/posts/1b7e545d.html">
@@ -197,7 +240,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%89%8D%E7%AB%AF/" style="color: #00a596">前端</a>
+            <a href="/tags/%E5%89%8D%E7%AB%AF/" style="color: #ffa2c4">前端</a>
         </span>
         
     </div>
@@ -235,7 +278,7 @@
         
         <span class="tag">
             
-            <a href="/tags/OpenWrt/" style="color: #00bcd4">OpenWrt</a>
+            <a href="/tags/OpenWrt/" style="color: #ffa2c4">OpenWrt</a>
         </span>
         
     </div>
@@ -273,7 +316,7 @@
         
         <span class="tag">
             
-            <a href="/tags/linux/" style="color: #00a596">linux</a>
+            <a href="/tags/linux/" style="color: #00bcd4">linux</a>
         </span>
         
     </div>
@@ -311,7 +354,7 @@
         
         <span class="tag">
             
-            <a href="/tags/hexo/" style="color: #03a9f4">hexo</a>
+            <a href="/tags/hexo/" style="color: #00a596">hexo</a>
         </span>
         
     </div>
@@ -349,7 +392,7 @@
         
         <span class="tag">
             
-            <a href="/tags/hexo/" style="color: #00a596">hexo</a>
+            <a href="/tags/hexo/" style="color: #00bcd4">hexo</a>
         </span>
         
     </div>
@@ -387,7 +430,7 @@
         
         <span class="tag">
             
-            <a href="/tags/hexo/" style="color: #00a596">hexo</a>
+            <a href="/tags/hexo/" style="color: #ffa2c4">hexo</a>
         </span>
         
     </div>
@@ -425,7 +468,7 @@
         
         <span class="tag">
             
-            <a href="/tags/AI/" style="color: #ffa2c4">AI</a>
+            <a href="/tags/AI/" style="color: #ff7d73">AI</a>
         </span>
         
     </div>
@@ -501,49 +544,11 @@
         
         <span class="tag">
             
-            <a href="/tags/nodejs/" style="color: #00a596">nodejs</a>
+            <a href="/tags/nodejs/" style="color: #03a9f4">nodejs</a>
         </span>
         
     </div>
     <a href="/posts/7645f773.html" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/posts/bb31fc73.html">
-        <h2 class="post-title">链队的应用：连续区间求最小</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2021/10/26
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>一个数据结构的链队小练习</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="color: #00bcd4">数据结构</a>
-        </span>
-        
-    </div>
-    <a href="/posts/bb31fc73.html" class="go-post">阅读全文</a>
 </div>
 
 
@@ -612,6 +617,14 @@
                 <a target="_blank" rel="noopener" href="https://situ2001.com/">Friends: situ2001</a>
             </div>
             
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://github.com/Lionaom">Lionaom</a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://argvchs.github.io/">Argvchs</a>
+            </div>
+            
         </div>
         
     </div>
@@ -640,7 +653,7 @@
 </footer>
 
                 </div>
-            </transition>
+            <!-- </transition> -->
             
             <transition name="fade">
                 <div id="preview" ref="preview" v-show="previewShow">
@@ -651,5 +664,18 @@
         </div>
         <script src="/js/main.js"></script>
         
-    </body>
+    
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 2,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
 </html>

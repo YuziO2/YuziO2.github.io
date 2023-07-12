@@ -142,15 +142,15 @@
     <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
 </transition>
 
-            <transition name="into">
-                <div id="main" v-show="!loading">
+            <!-- <transition name="into"> -->
+                <div id="main" class="into-enter-from">
                     <div id="archives">
     
     <div class="categories-tags">
         
         
         <span>
-            <a href="/tags/AI/" style="background: #03a9f4">
+            <a href="/tags/AI/" style="background: #00bcd4">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -161,11 +161,22 @@
         
         
         <span>
-            <a href="/tags/linux/" style="background: #00bcd4">
+            <a href="/tags/linux/" style="background: #ff7d73">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
                 linux
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/nodejs/" style="background: #03a9f4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                nodejs
             </a>
         </span>
         
@@ -183,18 +194,7 @@
         
         
         <span>
-            <a href="/tags/nodejs/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                nodejs
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/C/" style="background: #03a9f4">
+            <a href="/tags/C/" style="background: #00a596">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -218,7 +218,7 @@
         
         
         <span>
-            <a href="/tags/OpenWrt/" style="background: #00bcd4">
+            <a href="/tags/OpenWrt/" style="background: #03a9f4">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -229,11 +229,33 @@
         
         
         <span>
-            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="background: #03a9f4">
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="background: #ff7d73">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
                 数据结构
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E6%97%85%E8%A1%8C/" style="background: #03a9f4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                旅行
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E9%A6%99%E6%B8%AF/" style="background: #00bcd4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                香港
             </a>
         </span>
         
@@ -257,7 +279,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/%E5%89%8D%E7%AB%AF/" style="color: #ff7d73">前端</a>
+                        <a href="/tags/%E5%89%8D%E7%AB%AF/" style="color: #03a9f4">前端</a>
                     </span>
                     
                 </span>
@@ -287,7 +309,7 @@
 </footer>
 
                 </div>
-            </transition>
+            <!-- </transition> -->
             
             <transition name="fade">
                 <div id="preview" ref="preview" v-show="previewShow">
@@ -298,5 +320,18 @@
         </div>
         <script src="/js/main.js"></script>
         
-    </body>
+    
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 2,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
 </html>
