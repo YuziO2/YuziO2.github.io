@@ -3,22 +3,20 @@
 <html lang="zh_CN">
     <head>
         <meta charset="utf-8" />
-        <title>给主题添加黑暗模式 | Yuzi&#39;s Blog</title>
+        <title>给主题添加黑暗模式，以及白屏和首屏问题 | Yuzi&#39;s Blog</title>
         <meta name="author" content="Yuzi" />
         <meta name="description" content="A blog which include my study and life" />
         <meta name="keywords" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <link rel="icon" href="/images/lxh.png" />
-        <!-- <script>
-            if (localStorage.theme === "dark" ||
+        <script>
+            if (localStorage.getItem('theme') === "dark" ||
                     (!("theme" in localStorage) &&
                         window.matchMedia("(prefers-color-scheme: dark)").matches)
                 ) {
                     document.documentElement.classList.add("dark");
-                } else {
-                    document.documentElement.classList.remove("dark");
                 }
-        </script> -->
+        </script>
         <script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
 <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
 <link rel="stylesheet" href="/css/fonts.min.css" />
@@ -193,7 +191,7 @@
             <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
                 <div class="article">
     <div>
-        <h1>给主题添加黑暗模式</h1>
+        <h1>给主题添加黑暗模式，以及白屏和首屏问题</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -211,7 +209,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/hexo/" style="color: #03a9f4">hexo</a>
+                <a href="/tags/hexo/" style="color: #00a596">hexo</a>
             </span>
             
         </span>
@@ -346,6 +344,21 @@ setDarkMode(dark) &#123;
     &#125;
 &#125;,
 </code></pre>
+<h1 id="白屏闪屏问题"><a href="#白屏闪屏问题" class="headerlink" title="白屏闪屏问题"></a>白屏闪屏问题</h1><p>我在自己的本地测试完成后，满心欢喜地推送到了GitHub，然后打开线上的博客，发现了一个问题：点击刷新后，背景变成白色立马变成黑色，几次都是如此，十分影响观感。</p>
+<p>观察页面源代码可知，负责切换主题的逻辑main.js是在body中，在本地调试时，请求非常迅速，main.js能够立即被请求到并执行，而线上有延迟，加载完head后可能要过好一会才能拿到main.js，再执行，所以会出现先白色背景后闪回深色的问题。</p>
+<p>解决方式就是把这一块单独放进head里执行。<br>(在layout.ejs中，略去了其它部分：)</p>
+<pre><code class="html">&lt;head&gt;
+  &lt;script&gt;
+    if (localStorage.getItem(&#39;theme&#39;) === &quot;dark&quot; ||
+      (!(&quot;theme&quot; in localStorage) &amp;&amp;
+        window.matchMedia(&quot;(prefers-color-scheme: dark)&quot;).matches)
+    ) &#123;
+        document.documentElement.classList.add(&quot;dark&quot;);
+    &#125;
+  &lt;/script&gt;
+&lt;/head&gt;
+</code></pre>
+<p>这样就可以保证页面出现时就已经根据<code>localStorage</code>里的值把颜色设置好了。</p>
 
     </div>
     

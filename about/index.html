@@ -9,16 +9,14 @@
         <meta name="keywords" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <link rel="icon" href="/images/lxh.png" />
-        <!-- <script>
-            if (localStorage.theme === "dark" ||
+        <script>
+            if (localStorage.getItem('theme') === "dark" ||
                     (!("theme" in localStorage) &&
                         window.matchMedia("(prefers-color-scheme: dark)").matches)
                 ) {
                     document.documentElement.classList.add("dark");
-                } else {
-                    document.documentElement.classList.remove("dark");
                 }
-        </script> -->
+        </script>
         <script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
 <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
 <link rel="stylesheet" href="/css/fonts.min.css" />
