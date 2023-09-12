@@ -3,7 +3,7 @@
 <html lang="zh_CN">
     <head>
         <meta charset="utf-8" />
-        <title>人工智能实验1 | Yuzi&#39;s Blog</title>
+        <title>给主题添加黑暗模式 | Yuzi&#39;s Blog</title>
         <meta name="author" content="Yuzi" />
         <meta name="description" content="A blog which include my study and life" />
         <meta name="keywords" content="" />
@@ -193,14 +193,14 @@
             <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
                 <div class="article">
     <div>
-        <h1>人工智能实验1</h1>
+        <h1>给主题添加黑暗模式</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2022/9/14
+            2023/9/7
         </span>
         
         
@@ -211,7 +211,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/AI/" style="color: #00bcd4">AI</a>
+                <a href="/tags/hexo/" style="color: #03a9f4">hexo</a>
             </span>
             
         </span>
@@ -220,41 +220,132 @@
     
     <toc-component></toc-component>
     <div class="content" v-pre id="main-content">
-        <p>拿到这个实验的时候，我是一脸懵逼的，毕竟理论课只上了一节，还全是在吹水，然后实验课就来了，还是用的Python。实验课是周二上午上的，然而我周三晚上就把整个实验肝完了，期间除了上课和早上学英语单词，其他时间都在这上面，写代码还是挺快乐的，于是将（踩坑）过程记录如下：</p>
+        <p>之前学习了一下TailwindCSS，在它的<a target="_blank" rel="noopener" href="https://tailwindcss.com/docs/dark-mode">黑暗模式页</a>里详细地列出了黑暗模式的实现方式，深以为然，于是也想给自己的博客所使用的主题搞一个。</p>
 <span id="more"></span>
-
-<hr>
-<p>偷个懒，以下是实验报告原文：</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>首先一般有个按钮可以切换当前的主题，主题有三个状态：黑暗、浅色、跟随系统。</p>
+<p>如何检测系统的主题？使用这个方法：</p>
+<pre><code class="js">window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;).matches)
+</code></pre>
+<p>返回值为<code>true</code>即为黑暗模式，<code>false</code>即为浅色模式。</p>
+<p>然后就是如何读取主题了，这里我使用的是<code>localStorage</code>，在<code>localStorage</code>里存储一个<code>theme</code>的值，然后在页面加载时检测这个值，如果有值就使用这个值，如果没有就使用系统的主题。</p>
+<p>如何切换主题？这里我使用的是<code>document.documentElement.classList</code>，在<code>&lt;html&gt;</code>标签上添加<code>dark</code>类。</p>
+<p>有两种方法可以区分颜色：</p>
 <ol>
-<li><p>分析估价函数对启发式搜索算法的影响。</p>
-<p>由实验结果可知，估价函数的选取对结果的长度和求出的时间都有印象，不同的估价函数应对不同的初值，性能也有差异。总的来说，选取一个好的估价函数，对于使用启发式搜索算法又快又好地求出结果是至关重要的。</p>
-</li>
-<li><p>探究讨论各个搜索算法的特点。</p>
-<p>广度优先搜索：如果有解，总是能找到最优解，但是其效率较低，体现在耗时较长。</p>
-<p>深度优先搜索：一般找到的都不是最优解，性能和深度限制的设置有很大关系。</p>
-<p>A&amp;A*启发式搜索: 在状态空间中的搜索对每一个搜索的位置进行评估，得到最好的位置，再从这个位置进行搜索直到目标。这样可以省略大量无谓的搜索路径，效率极高。在启发式搜索中，对位置的估价是十分重要的。采用了不同的估价可以有不同的效果。</p>
-</li>
-<li><p>*扩展选做题：从初始状态到目标状态的变换，符合什么规律才可解。</p>
-<p>由数学知识可知，可计算这两个有序数列的逆序值，如果两者都是偶数或奇数，则可通过变换到达，否则，这两个状态不可达。</p>
-</li>
-<li><p>我的思考：</p>
-<p>在编写代码的过程中，我遇到了许多或“哭笑不得”，或“意味深长”的bug。下面列举几例：</p>
-<p>一．预先给的代码在我的电脑上（Linux）无法运行</p>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://s1.ax1x.com/2022/09/14/vxEShV.png"></p>
-<p>但是在其他同学的Windows电脑上却能跑起来，我查阅资料，再细看这个报错，感觉这个构造函数里的“拼图”字符串是多此一举，遂去掉，程序便能正常运行了！</p>
-<p>二．Python语言不熟练导致的问题<br>因为我对Python的了解不太深入，就导致了一些我写的代码和我想要的效果不一致的问题，比如：for i in range(-(COLS-1), COLS-1)中，range是“右开”的，所以右边界是取不到的。再比如有如下问题：</p>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://s1.ax1x.com/2022/09/14/vxEiX4.png"></p>
-<p>错误写法看似没有毛病，如果是C的话，确实没毛病，但是Python中变量可以不声明就直接赋值，所以这里Python就会把145行当成声明了一个局部变量，即使外面有同名全局变量！第一种解决方法就是，因为该值是一个数组，所以可以直接操作其数组内的值，此时就会取到全局变量，没有歧义；第二种解决方法就是使用global声明该变量是全局变量，再对其进行操作。</p>
-<p>三．i与j和x与y的匹配问题，到底哪个是行，哪个是列，常常搞得人晕头转向，不过使用调试器或者事先仔细思考一下也能解决。</p>
-</li>
+<li>在<code>:root</code>和 <code>:root.dark</code>里定义颜色变量，然后在CSS里使用<code>var(--&lt;variable-name&gt;)</code>来使用变量。</li>
+<li>或者在CSS里使用<code>&lt;selector&gt;.dark</code>来选择黑暗模式下的样式。</li>
 </ol>
-<p>总的来说，这次实验我确实学习到了很多，也收获到了很多。</p>
-<p>代码地址：<a target="_blank" rel="noopener" href="https://github.com/Yuzi0201/AIProgramming/blob/main/EX1/tmpPuzzleWithAutoPlay.py">https://github.com/Yuzi0201/AIProgramming/blob/main/EX1/tmpPuzzleWithAutoPlay.py</a></p>
-<p>一些参考：</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/266830722">https://zhuanlan.zhihu.com/p/266830722</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48557496/article/details/121463172">https://blog.csdn.net/weixin_48557496/article/details/121463172</a></p>
-<p>局部变量问题：</p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c3587a5f9f68">https://www.jianshu.com/p/c3587a5f9f68</a></p>
+<p>推荐使用第一种方法，因为第二种方法会导致CSS文件变得很大，而且不利于维护。</p>
+<h1 id="主要部分代码实现"><a href="#主要部分代码实现" class="headerlink" title="主要部分代码实现"></a>主要部分代码实现</h1><p>在主题的main.js中：</p>
+<p>初始时，检测<code>localStorage</code>里是否有<code>theme</code>的值，如果有就使用这个值，如果没有就把<code>theme</code>设置为<code>auto</code>。</p>
+<pre><code class="js">data()&#123;
+  return &#123;
+    theme: localStorage.getItem(&quot;theme&quot;) || &quot;auto&quot;,
+  &#125;
+&#125;
+</code></pre>
+<p>在页面加载时，检测<code>theme</code>，如果为<code>auto</code>则检测系统的主题并设置颜色，不是则直接设置颜色。<br>在<code>beforeunload</code>事件里，如果<code>theme</code>为<code>auto</code>则移除<code>localStorage</code>里的<code>theme</code>，否则就设置<code>localStorage</code>里的<code>theme</code>为当前的<code>theme</code>。</p>
+<pre><code class="js">created() &#123;
+  if (this.theme === &#39;auto&#39;)
+    this.isSystemDarkMode() ? this.setDarkMode(true) : this.setDarkMode(false);
+  else
+    this.theme === &quot;dark&quot; ? this.setDarkMode(true) : this.setDarkMode(false);
+  window.addEventListener(&quot;beforeunload&quot;, () =&gt; &#123;
+    if (this.theme === &quot;auto&quot;)
+      localStorage.removeItem(&quot;theme&quot;);
+    else
+      localStorage.setItem(&quot;theme&quot;, this.theme)
+  &#125;);
+&#125;,
+</code></pre>
+<p>判断系统是否为黑暗模式、设置颜色、切换主题的方法：</p>
+<pre><code class="js">methods: &#123;
+        // 判断系统是否为黑暗模式
+        isSystemDarkMode() &#123;
+            return window.matchMedia(&quot;(prefers-color-scheme: dark)&quot;).matches;
+        &#125;,
+        /**
+         * @param &#123;boolean&#125; dark 
+         */
+        setDarkMode(dark) &#123;
+            if (dark) &#123;
+                document.documentElement.classList.add(&quot;dark&quot;);
+                document
+                .getElementById(&quot;highlight-style-dark&quot;)
+                .removeAttribute(&quot;disabled&quot;);
+            &#125; else &#123;
+                document.documentElement.classList.remove(&quot;dark&quot;);
+                document
+                .getElementById(&quot;highlight-style-dark&quot;)
+                .setAttribute(&quot;disabled&quot;, &quot;&quot;);
+            &#125;
+        &#125;,
+        // 点击按钮切换主题
+        handleThemeSwitch() &#123;
+            this.theme = ((theme) =&gt; &#123;
+                switch (theme) &#123;
+                case &quot;auto&quot;: // auto -&gt; light
+                    this.setDarkMode(false);
+                    return &quot;light&quot;;
+                case &quot;light&quot;: // light -&gt; dark
+                    this.setDarkMode(true)
+                    return &quot;dark&quot;;
+                case &quot;dark&quot;: // dark -&gt; auto
+                    this.isSystemDarkMode() ? this.setDarkMode(true) : this.setDarkMode(false);
+                    return &quot;auto&quot;;
+            &#125;&#125;)(this.theme)
+        &#125;,
+    &#125;,
+</code></pre>
+<h1 id="适配第三方组件"><a href="#适配第三方组件" class="headerlink" title="适配第三方组件"></a>适配第三方组件</h1><p>页面上有一些引入的第三方组件，比如说评论组件，HighLightJS这些组件的样式是在组件内部写死的，所以我们需要在组件加载时检测主题并设置颜色。</p>
+<h2 id="Waline"><a href="#Waline" class="headerlink" title="Waline"></a>Waline</h2><p>Waline是一个基于Vercel Serverless的评论系统，它的<a target="_blank" rel="noopener" href="https://waline.js.org/guide/features/style.html">文档</a>里有提到如何适配黑暗模式。我们是在html下加上<code>dark</code>类，所以只需要在配置里写上我们的适配方法即可：</p>
+<pre><code class="js">// comments.ejs
+Waline.init(&#123;
+  //.....
+  dark: &quot;html.dark&quot;,
+&#125;)
+</code></pre>
+<p>这样Waline就会检测<code>html</code>标签是否有<code>dark</code>类，如果有就使用黑暗模式，没有就使用浅色模式。就适配完成了。</p>
+<h2 id="HighLightJS"><a href="#HighLightJS" class="headerlink" title="HighLightJS"></a>HighLightJS</h2><p>HighLightJS的样式文件本身就是通过<code>&lt;link&gt;</code>引入的，官网上也提供了许多不同的主题，我们可以导入浅色和深色两套主题，在浅色时disabled深色那套，深色时取消disabled即可。</p>
+<pre><code class="yaml"># _config.yml
+# 给出两套主题
+highlight:
+    enable: true
+    style: github
+    styleDark: github-dark
+</code></pre>
+<p>然后引入两套主题：(这里是import.ejs)</p>
+<pre><code class="html">&lt;% if (theme.highlight.enable) &#123; %&gt;
+&lt;script src=&quot;https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js&quot;&gt;&lt;/script&gt;
+&lt;link
+    rel=&quot;stylesheet&quot;
+    href=&quot;https://cdn.staticfile.org/highlight.js/11.8.0/styles/&lt;%- theme.highlight.style %&gt;.min.css&quot;
+/&gt;
+&lt;link 
+    rel=&quot;stylesheet&quot;
+    id=&quot;highlight-style-dark&quot;
+    disabled
+    href=&quot;https://cdn.staticfile.org/highlight.js/11.8.0/styles/&lt;%- theme.highlight.styleDark %&gt;.min.css&quot;
+/&gt;
+&lt;script src=&quot;&lt;%- url_for(&quot;/js/lib/highlight.js&quot;) %&gt;&quot;&gt;&lt;/script&gt;
+&lt;% &#125; %&gt;
+</code></pre>
+<p>然后在切换颜色时切换<code>disabled</code>属性即可：</p>
+<pre><code class="js">// main.js
+setDarkMode(dark) &#123;
+    if (dark) &#123;
+        document.documentElement.classList.add(&quot;dark&quot;);
+        document
+        .getElementById(&quot;highlight-style-dark&quot;)
+        .removeAttribute(&quot;disabled&quot;);
+    &#125; else &#123;
+        document.documentElement.classList.remove(&quot;dark&quot;);
+        document
+        .getElementById(&quot;highlight-style-dark&quot;)
+        .setAttribute(&quot;disabled&quot;, &quot;&quot;);
+    &#125;
+&#125;,
+</code></pre>
 
     </div>
     

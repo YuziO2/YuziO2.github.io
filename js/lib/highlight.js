@@ -13,7 +13,7 @@ mixins.highlight = {
         highlight() {
             let codes = document.querySelectorAll("pre");
             for (let i of codes) {
-                let code = i.innerText;
+                let code = i.textContent;
                 let language = [...i.classList, ...i.firstChild.classList][0] || "plaintext";
                 let highlighted;
                 try {
@@ -22,13 +22,15 @@ mixins.highlight = {
                     highlighted = code;
                 }
                 i.innerHTML = `
-                    <div class="code-content">${highlighted}</div>
+                    <div class="code-content hljs">${highlighted}</div>
                     <div class="language">${language}</div>
                     <div class="copycode">
                         <i class="fa-solid fa-copy fa-fw"></i>
                         <i class="fa-solid fa-clone fa-fw"></i>
                     </div>
                 `;
+                let content = i.querySelector(".code-content");
+                hljs.lineNumbersBlock(content, { singleLine: true });
                 let copycode = i.querySelector(".copycode");
                 copycode.addEventListener("click", async () => {
                     if (this.copying) return;
