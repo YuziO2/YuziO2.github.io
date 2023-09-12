@@ -20,9 +20,9 @@ https://blog.yuzi.dev/posts/bb31fc73.html
 https://blog.yuzi.dev/tags/index.html
 https://blog.yuzi.dev/categories/index.html
 https://blog.yuzi.dev/
-https://blog.yuzi.dev/tags/AI/
 https://blog.yuzi.dev/tags/linux/
 https://blog.yuzi.dev/tags/hexo/
+https://blog.yuzi.dev/tags/AI/
 https://blog.yuzi.dev/tags/nodejs/
 https://blog.yuzi.dev/tags/C/
 https://blog.yuzi.dev/tags/%E5%89%8D%E7%AB%AF/

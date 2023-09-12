@@ -4,9 +4,10 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url("https://s1.ax1x.com/2023/06/28/pCd83dg.jpg");
+    background-image: url("https://static.yuzi.dev/picture/bg_tigh.jpg");
+    background-size: cover;
     background-position: center;
-    opacity: 0.2;
+    opacity: 0.3;
     z-index: -1;
 }
 :root {
