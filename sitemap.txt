@@ -22,11 +22,11 @@ https://blog.yuzi.dev/categories/index.html
 https://blog.yuzi.dev/
 https://blog.yuzi.dev/tags/linux/
 https://blog.yuzi.dev/tags/hexo/
-https://blog.yuzi.dev/tags/AI/
 https://blog.yuzi.dev/tags/nodejs/
-https://blog.yuzi.dev/tags/C/
 https://blog.yuzi.dev/tags/%E5%89%8D%E7%AB%AF/
+https://blog.yuzi.dev/tags/C/
 https://blog.yuzi.dev/tags/OpenWrt/
+https://blog.yuzi.dev/tags/AI/
 https://blog.yuzi.dev/tags/%E6%97%85%E8%A1%8C/
 https://blog.yuzi.dev/tags/%E9%A6%99%E6%B8%AF/
 https://blog.yuzi.dev/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/
