@@ -3,7 +3,7 @@
 <html lang="zh_CN">
     <head>
         <meta charset="utf-8" />
-        <title>使用node-xlsx来操作表格文件 | Yuzi&#39;s Blog</title>
+        <title>Hello Shiro! | Yuzi&#39;s Blog</title>
         <meta name="author" content="Yuzi" />
         <meta name="description" content="A blog which include my study and life" />
         <meta name="keywords" content="" />
@@ -191,61 +191,26 @@
             <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
                 <div class="article">
     <div>
-        <h1>使用node-xlsx来操作表格文件</h1>
+        <h1>Hello Shiro!</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2022/9/11
+            2023/10/31
         </span>
         
-        
-        <span class="tags">
-            <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/nodejs/" style="color: #00a596">nodejs</a>
-            </span>
-            
-        </span>
         
     </div>
     
     <toc-component></toc-component>
     <div class="content" v-pre id="main-content">
-        <p>闲来无事，就试着玩了一下这个库</p>
-<span id="more"></span>
-
-<pre><code class="js">import xlsx from &#39;node-xlsx&#39;;
-import * as fs from &#39;fs&#39;;
-import path from &quot;path&quot;
-
-// const data = [
-//   [1, 2, 3],
-//   [true, false, null, &#39;sheetjs&#39;],
-//   [&#39;foo&#39;, &#39;bar&#39;, new Date(&#39;2014-02-19T14:30Z&#39;), &#39;0.3&#39;],
-//   [&#39;baz&#39;, null, &#39;qux&#39;],
-// ];
-// var buffer = xlsx.build([&#123; name: &#39;mySheetName&#39;, data: data &#125;]); // Returns a buffer
-
-// fs.writeFileSync(&#39;./test.xlsx&#39;, buffer, &#123; &#39;flag&#39;: &#39;w&#39; &#125;);
-
-const options = &#123;
-  type: &quot;buffer&quot;,
-  cellDates: true,
-  cellHTML: false,
-  dateNF: &quot;yyyy-mm-dd hh:mm:ss&quot;,
-  cellNF: true
-&#125;;
-
-const workSheetsFromFile = xlsx.parse(`$&#123;path.resolve()&#125;/test.xlsx`, options);
-console.log(workSheetsFromFile[0].data);
-</code></pre>
+        <p>你好，Shiro！</p>
+<p>是新的个人主页 + 博客了，旧的（本站）仍然会继续使用。</p>
+<p>新的博客（基于 mix-space+Shiro）：<a target="_blank" rel="noopener" href="https://yuzi.dev/">https://yuzi.dev</a></p>
+<p>旧的博客（基于 hexo+particleX）：<a href="https://blog.yuzi.dev/">https://blog.yuzi.dev</a></p>
+<p>文章会陆续迁移～, 旧的博客应该会继续与新博客同步更新（直到我懒得维护为止）。</p>
 
     </div>
     
