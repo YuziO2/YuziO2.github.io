@@ -3,7 +3,7 @@
 <html lang="zh_CN">
     <head>
         <meta charset="utf-8" />
-        <title>链队的应用：连续区间求最小 | Yuzi&#39;s Blog</title>
+        <title>NextJS和Koa的文件上传&amp;下载以及二进制加密&amp;解密 | Yuzi&#39;s Blog</title>
         <meta name="author" content="Yuzi" />
         <meta name="description" content="A blog which include my study and life" />
         <meta name="keywords" content="" />
@@ -191,14 +191,14 @@
             <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
                 <div class="article">
     <div>
-        <h1>链队的应用：连续区间求最小</h1>
+        <h1>NextJS和Koa的文件上传&amp;下载以及二进制加密&amp;解密</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2021/10/26
+            2023/12/24
         </span>
         
         
@@ -209,7 +209,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="color: #00bcd4">数据结构</a>
+                <a href="/tags/NextJS/" style="color: #00a596">NextJS</a>
             </span>
             
         </span>
@@ -218,125 +218,194 @@
     
     <toc-component></toc-component>
     <div class="content" v-pre id="main-content">
-        <p>一个数据结构的链队小练习</p>
+        <p>原文地址：<a target="_blank" rel="noopener" href="https://yuzi.dev/posts/frontend/next-koa-file-upload-and-encrypt">https://yuzi.dev/posts/frontend/next-koa-file-upload-and-encrypt</a></p>
 <span id="more"></span>
+<p>最近，我的毕设来到了对容器的文件管理的需求。而在管理文件中，最让人头大的则是文件的上传与下载了。</p>
+<p>首先先回顾一下项目的整体架构吧，Next 提供 ssr 渲染出的前端页面&amp;handle API 请求；基于 Koa 的 Daemon 部署在各个可以公网访问到的 VPS 上，作为容器运行的环境。Daemon 提供 Http API 供 Next 调用。目前 Daemon 会有一个固定的 token，作为与 Next 通信的对称加密的密钥。因为部署 Next 的机器肯定有 https，而 Daemon 所在的节点可能没有，所以这第二程（Next-&gt;Koa）数据是一定需要加密的，而第一程则不需要。</p>
+<p>所以一个请求的流程是，客户在浏览器发起请求到 Next route handler，Next 鉴权无误后利用 token 加密请求到 Daemon，Daemon 解密后执行请求的操作，后返回数据给 Next（同样有加解密），然后 Next 再把请求给客户。</p>
+<h1 id="文件上传到-Next"><a href="#文件上传到-Next" class="headerlink" title="文件上传到 Next"></a>文件上传到 Next</h1><p>首先第一步是将文件上传至 Next，前端方面我直接使用 Antd 的<code>&lt;Upload /&gt;</code>组件，并通过自定义请求<code>customRequest</code>附带上想要操作的实例和目标路径到 params。请求体使用 FormData：</p>
+<pre><code class="ts">export function uploadFile(
+  params: &#123;
+    id: number
+    path: string
+  &#125;,
+  data: &#123; file: File &#125;,
+): Promise&lt;&#39;success&#39;&gt; &#123;
+  const formData = new FormData()
+  formData.append(&#39;file&#39;, data.file)
+  return request(&#123;
+    url: &#39;/instance/file&#39;,
+    method: &#39;post&#39;,
+    params,
+    data: formData,
+  &#125;)
+&#125;
+</code></pre>
+<p>在 Next 端，我使用的是 13 的 APP router，提供了解析 FormData 的方法：</p>
+<pre><code class="ts">export async function POST(req: NextRequest) &#123;
+    const file = (await req.formData()).get(&#39;file&#39;) as File
+    const fileName = file.name
+    const bytes = await file.arrayBuffer()
+    const buffer = Buffer.from(bytes)
+&#125;
+</code></pre>
+<p>阅读<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/File">File 的文档</a>可知，File 其实是继承自<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Blob">Blob</a>，而 Blob 的方法<code>arrayBuffer()</code>则会返回一个 promise，其会兑现一个包含 Blob 所有内容的二进制格式的 ArrayBuffer。</p>
+<p><code>Buffer.from()</code>则是 node 的方法，它将一个 ArrayBuffer 以 Uint8Array 方式读取出来，这时候如果我们使用<code>console.log(buffer.toString())</code>的话就可以在终端打印出来上传的文件的内容了（如果上传的是文本文件的话）。</p>
+<h1 id="加解密二进制"><a href="#加解密二进制" class="headerlink" title="加解密二进制"></a>加解密二进制</h1><p>下一步就是把文件从 Next 加密后发去 Daemon，所以接下来就要研究如何加解密二进制了。</p>
+<p>CryptoJS 支持加密<code>WordArray</code>类型的二进制数据，而这个 WordArray 其实就是存着 32-bit 数的数组，大概长这样：<code>[0x00010203, 0x04050607]</code>。<br>如何将我们的 ArrayBuffer 转为 WordArray，我参考了<a target="_blank" rel="noopener" href="https://juejin.cn/post/6847902225784799246">这篇文章</a>所提供的方法：</p>
+<pre><code class="ts">const ArrayBufferToWordArray = (arrayBuffer: ArrayBuffer) =&gt; &#123;
+  const u8 = new Uint8Array(arrayBuffer, 0, arrayBuffer.byteLength)
+  const len = u8.length
+  const words: number[] = []
+  for (let i = 0; i &lt; len; i += 1) &#123;
+    words[i &gt;&gt;&gt; 2] |= (u8[i] &amp; 0xff) &lt;&lt; (24 - (i % 4) * 8)
+  &#125;
+  return CryptoJS.lib.WordArray.create(words, len)
+&#125;
 
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>例：<br>2 3 5 6 1 4 7<br>前4数最小为2，2-5数为1，3-6为1，4-7为1<br>给出一个数组，给出n，输出每一组n个数的最小值</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="创建链队"><a href="#创建链队" class="headerlink" title="创建链队"></a>创建链队</h2><pre><code class="cpp">typedef struct QNode
-&#123;
-    int data;
-    struct QNode *next;
-&#125; QNode, *QueuePtr;
-typedef struct
-&#123;
-    QueuePtr front;
-    QueuePtr rear;
-&#125; Link;
-</code></pre>
-<p>以很合理的方式创建了一个链队。</p>
-<h2 id="创建一个类"><a href="#创建一个类" class="headerlink" title="创建一个类"></a>创建一个类</h2><pre><code class="cpp">class Quene
-&#123;
-private:
-    Link Q;
-    int n;
-    int a[100];
-    int length;
-public:
-    Quene(int a[], int length, int n);
-    Quene();
-    ~Quene();
-    void makequeue()
-&#125;;
-</code></pre>
-<p>用一个类封装了一下所有的数据及函数。<br>构造函数采用了重载，分为预设数据和手动输入数据。</p>
-<h2 id="构造函数-从键盘输入数据"><a href="#构造函数-从键盘输入数据" class="headerlink" title="构造函数[从键盘输入数据]"></a>构造函数[从键盘输入数据]</h2><pre><code class="cpp">Quene::Quene()
-&#123;
-    length = 0;
-    cout &lt;&lt; &quot;\nPlease enter the array:&quot; &lt;&lt; endl;
-    while (cin &gt;&gt; a[length])//从键盘获取数组，同时得到数组长度
-    &#123;
-        length++;
-        if (cin.get() == &#39;\n&#39;)
-            break;
-    &#125;
-    cout &lt;&lt; &quot;Please enter n: &quot;;
-    cin &gt;&gt; n;
-    Q.front = Q.rear = new QNode;
-    Q.front-&gt;next = NULL;//初始化链队
+const WordArrayToArrayBuffer = (wordArray: CryptoJS.lib.WordArray) =&gt; &#123;
+  const &#123; words &#125; = wordArray
+  const &#123; sigBytes &#125; = wordArray
+  const u8 = new Uint8Array(sigBytes)
+  for (let i = 0; i &lt; sigBytes; i += 1) &#123;
+    const byte = (words[i &gt;&gt;&gt; 2] &gt;&gt;&gt; (24 - (i % 4) * 8)) &amp; 0xff
+    u8[i] = byte
+  &#125;
+  return u8
 &#125;
 </code></pre>
-<h2 id="构造函数-使用默认数据"><a href="#构造函数-使用默认数据" class="headerlink" title="构造函数[使用默认数据]"></a>构造函数[使用默认数据]</h2><pre><code class="cpp">Quene::Quene(int a[], int length, int n)
-&#123;
-    Q.front = Q.rear = new QNode;//初始化链队
-    Q.front-&gt;next = NULL;
-    this-&gt;length = length;
-    this-&gt;n = n;
-    for (size_t i = 0; i &lt; length; i++)
-    &#123;
-        this-&gt;a[i] = a[i];//从传入的参数获取数组，长度，n
-    &#125;
+<p>那么，就可以进行一个加解密测试了：</p>
+<pre><code class="ts">const file = (await req.formData()).get(&#39;file&#39;) as File
+const fileName = file.name
+const bytes = await file.arrayBuffer()
+const ArrayBufferToWordArray = (arrayBuffer: ArrayBuffer) =&gt; &#123;
+  const u8 = new Uint8Array(arrayBuffer, 0, arrayBuffer.byteLength)
+  const len = u8.length
+  const words: number[] = []
+  for (let i = 0; i &lt; len; i += 1) &#123;
+    words[i &gt;&gt;&gt; 2] |= (u8[i] &amp; 0xff) &lt;&lt; (24 - (i % 4) * 8)
+  &#125;
+  return CryptoJS.lib.WordArray.create(words, len)
+&#125;
+const wordBuffer = ArrayBufferToWordArray(bytes)
+const iv = CryptoJS.lib.WordArray.random(16)
+const token =
+  &#39;预设的Token&#39;
+const encryptedData = CryptoJS.AES.encrypt(wordBuffer, token, &#123;
+  iv,
+  mode: CryptoJS.mode.CBC,
+  padding: CryptoJS.pad.Pkcs7,
+&#125;)
+console.log(&#39;en&#39;, encryptedData)
+const decryptedData = CryptoJS.AES.decrypt(encryptedData, token, &#123;
+  iv,
+  mode: CryptoJS.mode.CBC,
+  padding: CryptoJS.pad.Pkcs7,
+&#125;)
+const WordArrayToArrayBuffer = (wordArray: CryptoJS.lib.WordArray) =&gt; &#123;
+  const &#123; words &#125; = wordArray
+  const &#123; sigBytes &#125; = wordArray
+  const u8 = new Uint8Array(sigBytes)
+  for (let i = 0; i &lt; sigBytes; i += 1) &#123;
+    const byte = (words[i &gt;&gt;&gt; 2] &gt;&gt;&gt; (24 - (i % 4) * 8)) &amp; 0xff
+    u8[i] = byte
+  &#125;
+  return u8
+&#125;
+const decryptedArrayBuffer = WordArrayToArrayBuffer(decryptedData)
+console.log(&#39;de&#39;, Buffer.from(decryptedArrayBuffer).toString())
+fs.writeFileSync(&#39;./&#39; + fileName, decryptedArrayBuffer)
+</code></pre>
+<p>经测试，上传的文本文件成功打印出解密的内容，上传的图片文件成功写入到指定位置且正常打开！二进制的加解密工作完成！</p>
+<h1 id="改写-axios-和-koa-中间件"><a href="#改写-axios-和-koa-中间件" class="headerlink" title="改写 axios 和 koa 中间件"></a>改写 axios 和 koa 中间件</h1><p>上面的工作只是在 Next 本地测试了一下，要实际使用，需要改写 next 和 koa 的中间件。</p>
+<p>对于请求，把 ArrayBuffer 放在 contentBuffer 字段里：</p>
+<pre><code class="ts">export async function POST(req: NextRequest) &#123;
+  const &#123; request, instanceID, path &#125; = await verify(req)
+  const file = (await req.formData()).get(&#39;file&#39;) as File
+  const fileName = file.name
+  const bytes = await file.arrayBuffer()
+  
+  const res = await request.post(&#39;/file/upload&#39;, &#123;
+    path,
+    id: instanceID,
+    contentBuffer: bytes,
+    fileName,
+  &#125;)
+  return response(&#123; data: res &#125;)
 &#125;
 </code></pre>
-<h2 id="进行比较的函数"><a href="#进行比较的函数" class="headerlink" title="进行比较的函数"></a>进行比较的函数</h2><pre><code class="cpp">void makequeue()
-    &#123;
-        int min = 0;
-        for (int i = 0; i &lt; n; i++)//将前n个数据放入链队
-        &#123;
-            QueuePtr p = new QNode; //入队元素开辟空间
-            p-&gt;data = a[i];         //置数1
-            p-&gt;next = NULL;
-            Q.rear-&gt;next = p; //新节点插入队尾
-            Q.rear = p;       //修改新节点指针
-            if (!i)
-            &#123;
-                min = p-&gt;data;
-            &#125;
-            else if (p-&gt;data &lt; min)//比较出最小的那一个数并输出
-            &#123;
-                min = p-&gt;data;
-            &#125;
-        &#125;
-        cout &lt;&lt; min &lt;&lt; &quot; &quot;;
-        for (size_t i = n; i &lt; length; i++)//对于剩下的数，每一次循环，从队尾新加一个数，将队头的数移出，然后进行比较大小
-        &#123;
-            /*——————入队——————*/
-            QueuePtr p = new QNode; //入队元素开辟空间
-            p-&gt;data = a[i];         //置数1
-            p-&gt;next = NULL;
-            Q.rear-&gt;next = p; //新节点插入队尾
-            Q.rear = p;       //修改新节点指针
-            /*——————出队——————*/
-            p = Q.front-&gt;next;
-            Q.front-&gt;next = p-&gt;next; //更新头指针
-            p = Q.front-&gt;next;       //为下面的比较大小而重置p
-            min = p-&gt;data;           //重置最小值
-            while (p-&gt;next)
-            &#123;
-                if (p-&gt;next-&gt;data &lt; min)
-                &#123;
-                    min = p-&gt;next-&gt;data;
-                &#125;
-                p = p-&gt;next;
-            &#125;
-            cout &lt;&lt; min &lt;&lt; &quot; &quot;;//比较大小，然后再输出最小值，重置参数min，然后进入下一次循环
-            min = 0x7fffffff; //最小值置最大；
-        &#125;
+<p>然后在请求的中间件中，将<code>contentBuffer</code>抽离出来单独加密，再在其他内容加密完成后再塞进去。 </p>
+<pre><code class="ts">  request.interceptors.request.use((req) =&gt; &#123;
+    let encryptedBuffer: string | undefined
+    const iv = Crypto.lib.WordArray.random(16)
+    if (
+      req.data.contentBuffer &amp;&amp;
+      req.data.contentBuffer instanceof ArrayBuffer
+    ) &#123; // 存在待加密的二进制，加密！
+      const wordBuffer = ArrayBufferToWordArray(req.data.contentBuffer)
+      encryptedBuffer = Crypto.AES.encrypt(wordBuffer, token, &#123;
+        iv,
+        mode: Crypto.mode.CBC,
+        padding: Crypto.pad.Pkcs7,
+      &#125;).toString() // 加密，并把 CipherParams 转为文本
+      delete req.data.contentBuffer // 从请求体中删去
     &#125;
+    // 进行加密其他普通文本类数据的工作……
+    req.data = &#123; data: encryptedData, iv, encryptedBuffer &#125; //把加密后的文本和加密后的二进制放进请求体中
+    return req
+  &#125;)
 </code></pre>
-<h2 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h2><pre><code class="cpp">int main()
-&#123;
-    int a[100] = &#123;2, 3, 4, 5, 6, 114514, 9, 4, 5, 7, 1919810, 655, 66, 4500, 37, 19, 23, 298, 13, 2&#125;;
-    int length = 20;
-    int n = 4;
-    Quene q(a, length, n);
-    q.makequeue();
-    /*————手动输入数据————*/
-    Quene manual;
-    manual.makequeue();
-&#125;
+<p>对于 Koa 的中间件，也要相应的进行处理：</p>
+<pre><code class="ts">app.use(async (ctx, next) =&gt; &#123;
+  if (ctx.method == &#39;POST&#39;) &#123;
+    try &#123;
+      // 获取请求体
+      const encryptedBody = ctx.request.body as &#123;
+        data: string
+        iv: CryptoJS.lib.WordArray
+        encryptedBuffer?: string
+      &#125;
+
+      let decryptedArrayBuffer: Uint8Array | undefined
+      if (encryptedBody.encryptedBuffer) &#123;
+        // 解密二进制部分
+        const decryptedWordArr = CryptoJS.AES.decrypt(
+          encryptedBody.encryptedBuffer,
+          config.token,
+          &#123;
+            iv: encryptedBody.iv,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7,
+          &#125;,
+        )
+        decryptedArrayBuffer = WordArrayToArrayBuffer(decryptedWordArr)
+      &#125;
+
+      // 解密请求体
+      const decryptedBodyStr = CryptoJS.AES.decrypt(
+        encryptedBody.data,
+        config.token,
+        &#123;
+          iv: encryptedBody.iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7,
+        &#125;,
+      ).toString(CryptoJS.enc.Utf8)
+      const decryptedBody = JSON.parse(decryptedBodyStr)
+      if (decryptedBody._validate !== 114) &#123;
+        throw new Error()
+      &#125;
+
+      // 将解密后的数据放回请求体中
+      ctx.request.body = &#123;
+        ...decryptedBody,
+        contentBuffer: decryptedArrayBuffer,
+      &#125;
+      // 后续操作……
 </code></pre>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>　　当元素出队时，可以最小值进行比较，若大于最小值，则下一次循环比较大小时无需将前三项数据进行比较，而是直接用原先的min与入队数据相比较，可以减少比较的次数。</p>
-<p>　　本篇代码：<a target="_blank" rel="noopener" href="https://github.com/Yuzi0201/Data-structure/blob/master/2-queue.cpp">https://github.com/Yuzi0201/Data-structure/blob/master/2-queue.cpp</a></p>
+<p>然后在 Koa 的相应路由中写上相应的把 buffer 写入对应地址的文件中，文件的上传就大功告成啦！<br>文件的下载也同理，这个就之后在写啦。</p>
+<h1 id="可以优化的地方"><a href="#可以优化的地方" class="headerlink" title="可以优化的地方"></a>可以优化的地方</h1><p>至此，虽然文件的上传可以正确无误的达到目标了，但是却代价巨大。为何？因为我们在 Next 直接把文件从客户端拿了上来并存在了 buffer 里，然后把这个 buffer 整个又发给了 koa，在测试中我们还发生了“413request entity too large”的问题，通过改 bodyParser 的配置解决了。但是 buffer 这种整存整取的方式对内存的消耗实在是太大了！试想，如果用户要把一个 10G 的压缩包（比如说地图很大的服务端）传上来，传输过程中 Next 和 Daemon 都要占用 10G 的内存！！！！这显然是代价巨大难以接受的。</p>
+<p>所以如果我完成毕设的基本功能后如果还有时间精力，需要对这个点进行一下优化，改为使用浏览器到Next相同的“流式传输”来节省内存。那么流式传输的对称加密也是在优化中要攻克的一个知识点了，想必届时我还会再写一篇文章罢！</p>
 
     </div>
     
