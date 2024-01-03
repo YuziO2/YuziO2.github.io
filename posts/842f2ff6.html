@@ -209,7 +209,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/NextJS/" style="color: #00a596">NextJS</a>
+                <a href="/tags/NextJS/" style="color: #00bcd4">NextJS</a>
             </span>
             
         </span>
@@ -218,7 +218,9 @@
     
     <toc-component></toc-component>
     <div class="content" v-pre id="main-content">
-        <p><a target="_blank" rel="noopener" href="https://yuzi.dev/posts/frontend/next-koa-file-upload-and-encrypt">书接上回</a>，直接整个文件整存整取对于小文件来说还好，如果是几 G 的大文件，对内存的占用不能不忽视了。所以我们应该借鉴流式传输的思想，每一次只处理一块，处理完就丢出去（丢给下一步，或最终写入硬盘），这样同一个时刻只会占用服务器的小部分内存，减轻了服务器的压力。</p>
+        <p>原文地址：<a target="_blank" rel="noopener" href="https://yuzi.dev/posts/frontend/stream-upload">https://yuzi.dev/posts/frontend/stream-upload</a></p>
+<span id="more"></span>
+<p><a target="_blank" rel="noopener" href="https://yuzi.dev/posts/frontend/next-koa-file-upload-and-encrypt">书接上回</a>，直接整个文件整存整取对于小文件来说还好，如果是几 G 的大文件，对内存的占用不能不忽视了。所以我们应该借鉴流式传输的思想，每一次只处理一块，处理完就丢出去（丢给下一步，或最终写入硬盘），这样同一个时刻只会占用服务器的小部分内存，减轻了服务器的压力。</p>
 <h1 id="浏览器端拆分"><a href="#浏览器端拆分" class="headerlink" title="浏览器端拆分"></a>浏览器端拆分</h1><p>首先，我们在浏览器端就可以完成文件的读取，<code>file.stream().getReader()</code>就可以帮助我们简单的完成流式读取。其简单用法如下：</p>
 <pre><code class="tsx">customRequest=&#123;async (&#123; file &#125;) =&gt; &#123;
   if (file instanceof File) &#123;
