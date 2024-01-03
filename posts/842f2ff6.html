@@ -3,7 +3,7 @@
 <html lang="zh_CN">
     <head>
         <meta charset="utf-8" />
-        <title>Yuzi&#39;s Blog</title>
+        <title>流式上传文件 | Yuzi&#39;s Blog</title>
         <meta name="author" content="Yuzi" />
         <meta name="description" content="A blog which include my study and life" />
         <meta name="keywords" content="" />
@@ -47,7 +47,13 @@
 
 
 
-<script src="/js/lib/home.js"></script>
+
+<script src="https://cdn.staticfile.org/waline/2.15.5/waline.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/waline/2.15.5/waline.min.css" />
+<link rel="stylesheet" href="https://cdn.staticfile.org/waline/2.15.5/waline-meta.min.css" />
+
+
+
 
 <link rel="stylesheet" href="/css/main.css" />
 
@@ -183,70 +189,11 @@
     <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
 </transition>
             <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-                <div id="home-head">
-    <div id="home-background" ref="homeBackground" data-images="https://static.yuzi.dev/picture/index_bg/1.jpg,https://static.yuzi.dev/picture/index_bg/2.jpg,https://static.yuzi.dev/picture/index_bg/3.jpg,https://static.yuzi.dev/picture/index_bg/4.jpg,https://static.yuzi.dev/picture/index_bg/5.jpg,https://static.yuzi.dev/picture/index_bg/6.jpg,https://static.yuzi.dev/picture/index_bg/7.jpg,https://static.yuzi.dev/picture/index_bg/8.jpg"></div>
-    <div id="home-info" @click="homeClick">
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="info">
-            <div class="wrap">
-                <h1>Yuzi&#39;s Blog</h1>
-                <h3>时间的流痕</h3>
-                <h5>A blog which include my study and life</h5>
-            </div>
-        </span>
+                <div class="article">
+    <div>
+        <h1>流式上传文件</h1>
     </div>
-</div>
-<div id="home-posts-wrap" true ref="homePostsWrap">
-    <div id="home-posts">
-        
-
-<div class="post">
-    <a href="/posts/47cc058a.html">
-        <h2 class="post-title">Hello Shiro!</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/10/31
-        </span>
-        
-        
-        <span class="special">
-            <i class="fa-solid fa-grip-vertical fa-fw"></i>
-        </span>
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>你好，Shiro！</p>
-<p>是新的个人主页 + 博客了，旧的（本站）仍然会继续使用。</p>
-<p>新的博客（基于 mix-space+Shiro）：<a target="_blank" rel="noopener" href="https://yuzi.dev/">https://yuzi.dev</a></p>
-<p>旧的博客（基于 hexo+particleX）：<a href="https://blog.yuzi.dev/">https://blog.yuzi.dev</a></p>
-<p>文章会陆续迁移～, 旧的博客应该会继续与新博客同步更新（直到我懒得维护为止）。</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-    </div>
-    <a href="/posts/47cc058a.html" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/posts/842f2ff6.html">
-        <h2 class="post-title">流式上传文件</h2>
-    </a>
-    <div class="category-and-date">
-        
+    <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
@@ -255,11 +202,23 @@
         </span>
         
         
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
             
-            <p><a target="_blank" rel="noopener" href="https://yuzi.dev/posts/frontend/next-koa-file-upload-and-encrypt">书接上回</a>，直接整个文件整存整取对于小文件来说还好，如果是几 G 的大文件，对内存的占用不能不忽视了。所以我们应该借鉴流式传输的思想，每一次只处理一块，处理完就丢出去（丢给下一步，或最终写入硬盘），这样同一个时刻只会占用服务器的小部分内存，减轻了服务器的压力。</p>
+            <span class="tag">
+                
+                <a href="/tags/NextJS/" style="color: #00a596">NextJS</a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <toc-component></toc-component>
+    <div class="content" v-pre id="main-content">
+        <p><a target="_blank" rel="noopener" href="https://yuzi.dev/posts/frontend/next-koa-file-upload-and-encrypt">书接上回</a>，直接整个文件整存整取对于小文件来说还好，如果是几 G 的大文件，对内存的占用不能不忽视了。所以我们应该借鉴流式传输的思想，每一次只处理一块，处理完就丢出去（丢给下一步，或最终写入硬盘），这样同一个时刻只会占用服务器的小部分内存，减轻了服务器的压力。</p>
 <h1 id="浏览器端拆分"><a href="#浏览器端拆分" class="headerlink" title="浏览器端拆分"></a>浏览器端拆分</h1><p>首先，我们在浏览器端就可以完成文件的读取，<code>file.stream().getReader()</code>就可以帮助我们简单的完成流式读取。其简单用法如下：</p>
 <pre><code class="tsx">customRequest=&#123;async (&#123; file &#125;) =&gt; &#123;
   if (file instanceof File) &#123;
@@ -475,411 +434,17 @@ router.post(&#39;/upload&#39;, async (ctx) =&gt; &#123;
 <h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>以上的工作看着虽然简单，但也是结结实实地折腾了一天。经过这番折腾，我对二进制、对流的认识又深入了不少、也对性能优化有了新的理解。</p>
 <p>另外，中午我的指导老师邀请小组成员开会，会上我评估了一下未完成的工作，发现有十个甚至九个Feature亟待开发。然而我明天起也必须停止开发转向完善我的开题报告的工作去了。唉，时间紧任务重啊！！</p>
 
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/NextJS/" style="color: #03a9f4">NextJS</a>
-        </span>
-        
-    </div>
-    <a href="/posts/842f2ff6.html" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/posts/f5a4584b.html">
-        <h2 class="post-title">我的2023</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/12/31
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>原文地址：<a target="_blank" rel="noopener" href="https://yuzi.dev/notes/6">https://yuzi.dev/notes/6</a></p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-    </div>
-    <a href="/posts/f5a4584b.html" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/posts/134c3580.html">
-        <h2 class="post-title">NextJS和Koa的文件上传&amp;下载以及二进制加密&amp;解密</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/12/24
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>原文地址：<a target="_blank" rel="noopener" href="https://yuzi.dev/posts/frontend/next-koa-file-upload-and-encrypt">https://yuzi.dev/posts/frontend/next-koa-file-upload-and-encrypt</a></p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/NextJS/" style="color: #ffa2c4">NextJS</a>
-        </span>
-        
-    </div>
-    <a href="/posts/134c3580.html" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/posts/4d5ef618.html">
-        <h2 class="post-title">在React中使用简单的状态管理</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/12/2
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>原文地址：<a target="_blank" rel="noopener" href="https://yuzi.dev/posts/frontend/react-reducer">https://yuzi.dev/posts/frontend/react-reducer</a></p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/React/" style="color: #03a9f4">React</a>
-        </span>
-        
-    </div>
-    <a href="/posts/4d5ef618.html" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/posts/f53f778b.html">
-        <h2 class="post-title">给主题添加黑暗模式，以及白屏和首屏问题</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/9/7
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>之前学习了一下TailwindCSS，在它的<a target="_blank" rel="noopener" href="https://tailwindcss.com/docs/dark-mode">黑暗模式页</a>里详细地列出了黑暗模式的实现方式，深以为然，于是也想给自己的博客所使用的主题搞一个。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/hexo/" style="color: #ffa2c4">hexo</a>
-        </span>
-        
-    </div>
-    <a href="/posts/f53f778b.html" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/posts/2a89736b.html">
-        <h2 class="post-title">第一次香港之行</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/7/7
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>6月30日这天，周五，我和<a target="_blank" rel="noopener" href="https://situ2001.com/">situ2001</a>一起利用考完试这个周末来了一次香港之旅，也算是我期待已久的第一次出境旅行吧。游完后感触颇深，遂在这个无事可做的下午在工位上整理出我的游记。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%97%85%E8%A1%8C/" style="color: #00a596">旅行</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E9%A6%99%E6%B8%AF/" style="color: #ffa2c4">香港</a>
-        </span>
-        
-    </div>
-    <a href="/posts/2a89736b.html" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/posts/1b7e545d.html">
-        <h2 class="post-title">使用mkcert进行本地自签证书</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/6/28
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>在本地开发时，常常会有非https的“不安全”的提示，去获得权威CA的证书又不现实。但借助mkcert，可以方便的自签证书。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E5%89%8D%E7%AB%AF/" style="color: #03a9f4">前端</a>
-        </span>
-        
-    </div>
-    <a href="/posts/1b7e545d.html" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/posts/16c911c1.html">
-        <h2 class="post-title">小米路由器AC2100刷入OpenWrt</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/1/18
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>今天闲来无事，终于在家里的小米路由器上刷入了OpenWRT，遂记录一下过程。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/OpenWrt/" style="color: #ffa2c4">OpenWrt</a>
-        </span>
-        
-    </div>
-    <a href="/posts/16c911c1.html" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/posts/1ef2d696.html">
-        <h2 class="post-title">WSL入坑记</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2022/9/24
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>起因是最终还是受不了Linux生态过于薄弱，又不想用ms-Windows做开发，遂想到了这个，然后开始尝试，还是踩了不少坑，总结如下：</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/linux/" style="color: #03a9f4">linux</a>
-        </span>
-        
-    </div>
-    <a href="/posts/1ef2d696.html" class="go-post">阅读全文</a>
-</div>
-
-
-        <div class="page-current">
-    <div class="prev">
-        
-    </div>
-    <div class="page-index">
-        
-        <span class="current">1</span>
-        
-        <span>
-            <a class="page-num" href="/page/2/">2</a>
-            
-            <a class="page-num" href="/page/3">3</a>
-            
-            
-        </span>
-        
-    </div>
-    <div class="next">
-        
-        <a class="page-num" href="/page/2/">
-            <i class="fa-solid fa-caret-right fa-fw"></i>
-        </a>
-        
-    </div>
-</div>
-
     </div>
     
-    <div id="home-card">
-        <div id="card-style">
-    <div id="card-div">
-        <div class="avatar">
-            <img src="https://static.yuzi.dev/picture/avatar_grey.jpg" alt="avatar" />
-        </div>
-        <div class="name">Yuzi</div>
-        <div class="description">
-            <p>“C&#x2F;S学生一枚”</p>
-
-        </div>
-        
-        <div class="icon-links">
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="https://github.com/YuziO2">
-                    <i
-                        class="fa-brands fa-github fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a href="mailto:yuzi@yuzi.dev">
-                    <i
-                        class="fa-regular fa-envelope fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-        </div>
-        
-        
-        <div class="friend-links">
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://situ2001.com/">Friends: situ2001</a>
-            </div>
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://github.com/Lionaom">Lionaom</a>
-            </div>
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://argvchs.github.io/">Argvchs</a>
-            </div>
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://rhxie.top/">RH-Xie</a>
-            </div>
-            
-        </div>
-        
+    
+    
+    
+    
+    <div id="comment">
+        <div id="waline-container"></div>
     </div>
-</div>
-
-    </div>
+    
+    
     
 </div>
 
@@ -911,6 +476,32 @@ router.post(&#39;/upload&#39;, async (ctx) =&gt; &#123;
             
         </div>
         <script src="/js/main.js"></script>
+        
+        
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://comments.yuzi.dev",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+        locale: {"placeholder":"欢迎评论(填写邮箱可在被回复时收到邮件提醒)"},
+        
+        dark: "html.dark",
+    });
+</script>
+
+
+
         
     
         <style>
