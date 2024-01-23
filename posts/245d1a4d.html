@@ -3,7 +3,7 @@
 <html lang="zh_CN">
     <head>
         <meta charset="utf-8" />
-        <title>指针调用函数实例 | Yuzi&#39;s Blog</title>
+        <title>给退役的红米手机刷个机 | Yuzi&#39;s Blog</title>
         <meta name="author" content="Yuzi" />
         <meta name="description" content="A blog which include my study and life" />
         <meta name="keywords" content="" />
@@ -191,14 +191,14 @@
             <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
                 <div class="article">
     <div>
-        <h1>指针调用函数实例</h1>
+        <h1>给退役的红米手机刷个机</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2020/12/10
+            2024/1/23
         </span>
         
         
@@ -209,7 +209,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/C/" style="color: #ffa2c4">C++</a>
+                <a href="/tags/%E5%88%B7%E6%9C%BA/" style="color: #03a9f4">刷机</a>
             </span>
             
         </span>
@@ -218,69 +218,33 @@
     
     <toc-component></toc-component>
     <div class="content" v-pre id="main-content">
-        <p>思修课无聊搞出来的东西</p>
+        <p>原文地址：<a target="_blank" rel="noopener" href="https://yuzi.dev/posts/tech/redmi-note8Pro-crDroid">https://yuzi.dev/posts/tech/redmi-note8Pro-crDroid</a></p>
 <span id="more"></span>
-
-<p>题目:</p>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://s3.ax1x.com/2020/12/10/rFsWfs.jpg" alt="rFsWfs.jpg"></p>
-<p>手撸代码</p>
-<pre><code class="c++">#include &lt;iostream&gt;
-#include &lt;cmath&gt;
-using namespace std;
-double Tn(double a, double b, double n,int sumtype);
-double f1(double x);
-double f2(double x);
-double f3(double x);
-const int PI = 3.1415926;
-
-int main()
-&#123;
-    double n, a, b;int sumtype;
-    cout &lt;&lt; &quot;Please enter a b n,sum 1 or 2 or 3&quot; &lt;&lt; endl;
-    cin &gt;&gt; b &gt;&gt; a &gt;&gt; n &gt;&gt; sumtype;
-    double result = Tn(a, b, n,sumtype);
-    cout &lt;&lt; &quot;result is &quot; &lt;&lt; result &lt;&lt; endl;
-&#125;
-
-double Tn(double a, double b,double n, int sumtype)
-&#123;
-    double h = (b - a) / n;
-    double (*f)(double);
-    switch (sumtype)
-    &#123;
-    case 1: f = f1; break;
-    case 2: f = f2; break;
-    case 3: f = f3; break;
-    default: abort();
-        break;
-    &#125;
-    double fa = f(a); double fb = f(b); double sum = 0;
-    for (int i=1; i &lt; n; i++)
-    &#123;
-        sum += f(a + i*h);
-    &#125;
-    return h * (f(a) + f(b)) / 2 + h * sum;
-&#125;
-
-double f1(double x)
-&#123;
-    return 4 / (1 + x * x);
-&#125;
-
-double f2(double x)
-&#123;
-    return sqrt(1 + x * x);
-&#125;
-
-double f3(double x)
-&#123;
-    return sin(x);
-&#125;
+<p>上周回家后，把我妈的红米 Note8Pro 用我之前的 Note12Turbo 给换下来了，我也终于有一部现代的手机可以用来搞机了！</p>
+<p>经过 168 小时的漫长等待后，今天终于能解锁了！于是光速解锁刷机。</p>
+<h1 id="刷入-Magisk"><a href="#刷入-Magisk" class="headerlink" title="刷入 Magisk"></a>刷入 Magisk</h1><p>教程：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/360655776">https://zhuanlan.zhihu.com/p/360655776</a></p>
+<p>根据教程中的方式刷入 TWRP，因为手机原本是基于安卓 11 的 MIUI12.5，所以我也选择了对应的版本刷入。</p>
+<p>然后根据教程刷入 Magisk：</p>
+<blockquote>
+<p>然后在电脑上<a target="_blank" rel="noopener" href="https://github.com/topjohnwu/Magisk/releases">下载 Magisk</a>（面具）安装包兼卡刷包和 <a target="_blank" rel="noopener" href="https://syxz.lanzoub.com/ijMsSng1j2b">ADB 命令行</a>。下载后将 Magisk 文件名更改为 magisk.zip（是的，后缀改 zip），移动到 ADB 命令行文件夹内，然后将手机在 TWRP 中用数据线连接电脑，电脑打开 ADB 命令行，依次输入以下命令：</p>
+</blockquote>
+<pre><code class="bash">adb push magisk.zip /tmp/
+adb shell twrp install /tmp/magisk.zip
 </code></pre>
-<p>注意，22行定义指针时，要带上形参(double)，且要用(*p)，因为优先级的原因，否则会报错!!!</p>
-<p>然后就可以愉快地求积分啦!再也不用担心数学作业不会啦!(逃——)</p>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://s3.ax1x.com/2020/12/10/rFyjUg.png"></p>
-<p>这个是第三个函数的结果，可以发现，在π精度很高，和切片n很多的时候，得到了正确的积分::one:</p>
+<blockquote>
+<p>如果没有出错，手机上此时会显示正在刷入。刷入完成即 Root 成功，然后就可以开机了。</p>
+</blockquote>
+<blockquote>
+<p>开机后桌面上是没有 Magisk APP 的，需要自己安装。将电脑上的 magisk.zip 重命名成 magisk.apk，复制到手机里安装即可。</p>
+</blockquote>
+<p>然后当我准备利用 Magisk 安装谷歌全家桶时（通过<a target="_blank" rel="noopener" href="https://github.com/wacko1805/MagiskGapps">MagiskGapps</a>），然而其 readme 中赫然写道：“DOES NOT work on MIUI.”我还不信邪地试了一下，安装上了果然直接闪退。</p>
+<p>真气人，不过都解锁了，直接上个类原生吧！！！</p>
+<h1 id="刷入类原生系统"><a href="#刷入类原生系统" class="headerlink" title="刷入类原生系统"></a>刷入类原生系统</h1><p>系统选择上，我选了用得比较多机型也比较全的<a target="_blank" rel="noopener" href="https://crdroid.net/">crDroid</a>，对于我的机型也适配到了安卓 14！</p>
+<p>下载完包后，进 TWRP 后进行一个双清，然后直接刷入！顺便也把上面的 Magisk 也补上。视频教程：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1n64y1u7p4">https://www.bilibili.com/video/BV1n64y1u7p4</a></p>
+<h1 id="类原生体验"><a href="#类原生体验" class="headerlink" title="类原生体验"></a>类原生体验</h1><p>刷入后也进行了一个体验，类原生和 MIUI 还是有很大的不一样的，谷歌处处都体现了其细腻的设计，难不怪在国外使用谷歌全家桶体验也不输苹果！<br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://static.yuzi.dev/picture/blog/tech/redmi-note8Pro-crDroid/1706014430345.jpg" alt="一个设置页面"></p>
+<h1 id="搞个-Linux"><a href="#搞个-Linux" class="headerlink" title="搞个 Linux"></a>搞个 Linux</h1><p>最开始我想着用 Linux deploy 来装一个 Linux，但是这个玩意貌似年久失修且我尝试安装 Arch 时总是失败。最后还是转向了 Termux 的 proot 方案，这个方案倒也不需要 root 了。一个小插曲是，我用 openSUSE 的 openssh 时总是有问题，最后迫不得已还是转回了 Arch，看来还是 Arch 神教好啊。</p>
+<p>不过这个 Linux 毕竟不是完整的，所以有可能会出现奇奇怪怪的 bug，比如我运行 vite 良好，但是想放上局域网就崩溃了，上网一查貌似是 termux 和 node 中 os 模块的一个 API 实现有问题导致的。不过 vscode 自带端口转发，日常拿来开发应该问题不大【应该吧】。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>貌似刷完了发现并没有什么用，目前还没有什么正好需要跑在上面的服务，考虑到它基于proot没有systemd的特性，也不是很敢拿来把工作流扔上去。当是一次新奇的体验罢。类原生虽好，但拿来当主力系统应对各种奇怪的毒瘤软件还是有点力不从心了，目前当一个备用机来把玩吧。如果读者有什么新鲜的用法欢迎评论区留言！</p>
 
     </div>
     

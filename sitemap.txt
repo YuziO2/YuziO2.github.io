@@ -1,3 +1,4 @@
+https://blog.yuzi.dev/posts/245d1a4d.html
 https://blog.yuzi.dev/posts/842f2ff6.html
 https://blog.yuzi.dev/posts/4d5ef618.html
 https://blog.yuzi.dev/posts/134c3580.html
@@ -37,3 +38,4 @@ https://blog.yuzi.dev/tags/OpenWrt/
 https://blog.yuzi.dev/tags/%E6%97%85%E8%A1%8C/
 https://blog.yuzi.dev/tags/%E9%A6%99%E6%B8%AF/
 https://blog.yuzi.dev/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/
+https://blog.yuzi.dev/tags/%E5%88%B7%E6%9C%BA/
