@@ -3,7 +3,7 @@
 <html lang="zh_CN">
     <head>
         <meta charset="utf-8" />
-        <title>Tags: NextJS | Yuzi&#39;s Blog</title>
+        <title>Node的Buffer转ArrayBuffer里的坑 | Yuzi&#39;s Blog</title>
         <meta name="author" content="Yuzi" />
         <meta name="description" content="A blog which include my study and life" />
         <meta name="keywords" content="" />
@@ -43,6 +43,14 @@
 
 <script src="/js/lib/preview.js"></script>
 
+
+
+
+
+
+<script src="https://cdn.staticfile.org/waline/2.15.5/waline.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/waline/2.15.5/waline.min.css" />
+<link rel="stylesheet" href="https://cdn.staticfile.org/waline/2.15.5/waline-meta.min.css" />
 
 
 
@@ -181,219 +189,88 @@
     <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
 </transition>
             <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-                <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        <span>
-            <a href="/tags/AI/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                AI
-            </a>
+                <div class="article">
+    <div>
+        <h1>Node的Buffer转ArrayBuffer里的坑</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/1/25
         </span>
         
         
-        
-        <span>
-            <a href="/tags/NextJS/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                NextJS
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Node/" style="color: #ffa2c4">Node</a>
+            </span>
+            
         </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/tags/linux/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                linux
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/nodejs/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                nodejs
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/hexo/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                hexo
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/C/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                C++
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E5%89%8D%E7%AB%AF/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                前端
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/React/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                React
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/OpenWrt/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                OpenWrt
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%97%85%E8%A1%8C/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                旅行
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E9%A6%99%E6%B8%AF/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                香港
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                数据结构
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E5%88%B7%E6%9C%BA/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                刷机
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Node/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Node
-            </a>
-        </span>
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2024/1/4</div>
-            <a href="/posts/842f2ff6.html">
-                <h3>流式上传文件</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/NextJS/" style="color: #ffa2c4">NextJS</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <toc-component></toc-component>
+    <div class="content" v-pre id="main-content">
+        <p>原文地址：<a target="_blank" rel="noopener" href="https://yuzi.dev/posts/frontend/node-buffer-to-uintarray">https://yuzi.dev/posts/frontend/node-buffer-to-uintarray</a></p>
+<span id="more"></span>
+<p>在文章开始之前，感谢 GPT-4 给我的帮助和启发。</p>
+<hr>
+<p>之前，下载的功能做好后，我就放着没管了，昨天下了个小文件（38B 大小）测试，发现下下来大小居然达到了 8KB！！！</p>
+<p>源文件：</p>
+<pre><code>#!/bin/bash
+
+java -jar server.jar nogui
+</code></pre>
+<p>下载下来的样子：<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://static.yuzi.dev/picture/blog/frontend/node-buffer-to-uintarray/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-01-25%20204357.png" alt="这都是些啥？"></p>
+<p>然后就开始了排错，难道是对称加密的问题？GPT 也给出了解释：PKCS7 的算法会有一个填充，可能是这个填充没去掉。但是我的<code>WordArrayToArrayBuffer</code>函数确实是正确地处理了这个填充问题，另外一个佐证就是，上传小文件是没有任何问题的，只有下载有问题。这么说问题就不是出在对称加密上。</p>
+<p>再审视一下 koa 端下载功能的代码实现：</p>
+<pre><code class="ts">const readable = fs.createReadStream(path, &#123;
+  start: current,
+  end,
+&#125;)
+const buffer = await readStreamToBuffer(readable)
+ctx.body = &#123;
+  contentBuffer: buffer.buffer,
+&#125;
+</code></pre>
+<p>其中，buffer 的类型是 Node 的 Buffer，而其属性 buffer 则是提取出其底层的 ArrayBuffer。<br>将它们分别打印一下，果然就出现了问题：</p>
+<pre><code class="ts">console.log(buffer.toString())
+console.log(new TextDecoder(&#39;utf-8&#39;).decode(buffer.buffer))
+</code></pre>
+<p>第一行打印出来的是正常的，第二行就出现各种奇奇怪怪的内容和乱码了！</p>
+<p>查阅后得知：</p>
+<blockquote>
+<p>在 Node.js 中，Buffer 对象是用于处理二进制数据的，它是 Uint8Array 的一个子类，但有一些额外的方法和属性。而 ArrayBuffer 是 JavaScript 的内建类型，用于处理二进制数据，它是 TypedArray 和 DataView 的基础。</p>
+</blockquote>
+<blockquote>
+<p>在之前的代码中，我试图将 Buffer 对象的.buffer 属性赋值给 contentBuffer。这在某些情况下可能会导致问题，因为 Buffer 对象的.buffer 属性实际上是底层的 ArrayBuffer，它可能比 Buffer 对象本身更大。这是因为 Node.js 可能会为 Buffer 对象预分配更多的内存，以便在需要时追加更多的数据。</p>
+</blockquote>
+<blockquote>
+<p>当试图将 Buffer 对象转换为 Uint8Array 时，你应该使用 Buffer 对象的.byteOffset 和.byteLength 属性，以确保只获取 Buffer 对象实际包含的数据，而不是整个底层的 ArrayBuffer。</p>
+</blockquote>
+<pre><code class="ts">const buffer = await readStreamToBuffer(readable);
+const uint8Array = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+</code></pre>
+<p>所以，原来是Node的Buffer转为原生的ArrayBuffer时我的理解出现了偏差，所以才出现了乱码。将下载部分按上述措施修改回来后，下载下来的小文件就没有任何问题了。看来对于各种API的用法、属性还是要多了解透啊！</p>
+
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/12/24</div>
-            <a href="/posts/134c3580.html">
-                <h3>NextJS和Koa的文件上传&amp;下载以及二进制加密&amp;解密</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/NextJS/" style="color: #ff7d73">NextJS</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="waline-container"></div>
     </div>
+    
+    
     
 </div>
 
@@ -425,6 +302,32 @@
             
         </div>
         <script src="/js/main.js"></script>
+        
+        
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://comments.yuzi.dev",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+        locale: {"placeholder":"欢迎评论(填写邮箱可在被回复时收到邮件提醒)"},
+        
+        dark: "html.dark",
+    });
+</script>
+
+
+
         
     
         <style>
